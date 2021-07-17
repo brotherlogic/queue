@@ -10,7 +10,7 @@ import (
 
 func (s *Server) runRPC(ctx context.Context, service, method string, payload proto.Message) (*proto.Message, error) {
 	resolution := "recordcollection"
-	conn, err := s.FDial(resolution)
+	conn, err := s.FDialServer(ctx, resolution)
 	if err != nil {
 		return nil, err
 	}
