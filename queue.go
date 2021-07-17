@@ -2,23 +2,28 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/brotherlogic/goserver"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
 	pbg "github.com/brotherlogic/goserver/proto"
+	"github.com/brotherlogic/goserver/utils"
+	rcpb "github.com/brotherlogic/recordcollection/proto"
 )
 
 //Server main server type
 type Server struct {
 	*goserver.GoServer
+	cmap map[string]interface{}
 }
 
 // Init builds the server
 func Init() *Server {
 	s := &Server{
 		GoServer: &goserver.GoServer{},
+		cmap:     make(map[string]interface{}),
 	}
 	return s
 }
@@ -60,6 +65,12 @@ func main() {
 	if err != nil {
 		return
 	}
+
+	server.cmap["recordcollection.RecordCollectionService"] = rcpb.NewRecordCollectionServiceClient
+	ctx, cancel := utils.ManualContext("queue-test", time.Minute)
+	defer cancel()
+	res, err := server.runRPC(ctx, "recordcollection.RecordCollectionService", "GetRecord", &rcpb.GetRecordRequest{InstanceId: 365221819})
+	server.Log(fmt.Sprintf("Run result: %v and %v", res, err))
 
 	fmt.Printf("%v", server.Serve())
 }
