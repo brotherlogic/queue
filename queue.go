@@ -56,7 +56,6 @@ func (s *Server) GetState() []*pbg.State {
 }
 
 func main() {
-
 	server := Init()
 	server.PrepServer()
 	server.Register = server
