@@ -65,6 +65,7 @@ func main() {
 		return
 	}
 
+	time.Sleep(time.Second * 5)
 	server.cmap["recordcollection.RecordCollectionService"] = rcpb.NewRecordCollectionServiceClient
 	ctx, cancel := utils.ManualContext("queue-test", time.Minute)
 	defer cancel()
