@@ -9,7 +9,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func (s *Server) runRPC(ctx context.Context, service, method string, payload proto.Message) (*proto.Message, error) {
+func (s *Server) runRPC(ctx context.Context, service, method string, payload proto.Message) (proto.Message, error) {
 	elements := strings.Split(service, ".")
 	conn, err := s.FDialServer(ctx, elements[0])
 	if err != nil {
@@ -34,7 +34,7 @@ func (s *Server) runRPC(ctx context.Context, service, method string, payload pro
 
 	}
 
-	return results[0].Interface().(*proto.Message), nil
+	return results[0].Interface().(proto.Message), nil
 }
 
 func (s *Server) buildClient(service string) (interface{}, error) {
