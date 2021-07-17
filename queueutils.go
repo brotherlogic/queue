@@ -41,5 +41,5 @@ func (s *Server) buildClient(service string) (interface{}, error) {
 	if val, ok := s.cmap[service]; ok {
 		return val, nil
 	}
-	return nil, fmt.Errorf("Not quite implemented")
+	return nil, fmt.Errorf("not quite implemented")
 }
