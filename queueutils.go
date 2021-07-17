@@ -3,14 +3,15 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"strings"
 
 	"golang.org/x/net/context"
 	"google.golang.org/protobuf/proto"
 )
 
 func (s *Server) runRPC(ctx context.Context, service, method string, payload proto.Message) (*proto.Message, error) {
-	resolution := "recordcollection"
-	conn, err := s.FDialServer(ctx, resolution)
+	elements := strings.Split(service, ".")
+	conn, err := s.FDialServer(ctx, elements[0])
 	if err != nil {
 		return nil, err
 	}
