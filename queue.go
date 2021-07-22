@@ -2,21 +2,29 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/brotherlogic/goserver"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/proto"
 
-	pbg "github.com/brotherlogic/goserver/proto"
+	dspb "github.com/brotherlogic/dstore/proto"
+	gspb "github.com/brotherlogic/goserver/proto"
 	"github.com/brotherlogic/goserver/utils"
-	rcpb "github.com/brotherlogic/recordcollection/proto"
+	pb "github.com/brotherlogic/queue/proto"
+)
+
+const (
+	CONFIG_KEY = "/github.com/brotherlogic/queues/config"
 )
 
 //Server main server type
 type Server struct {
 	*goserver.GoServer
-	cmap map[string]interface{}
+	cmap    map[string]interface{}
+	running map[string]bool
 }
 
 // Init builds the server
@@ -24,6 +32,7 @@ func Init() *Server {
 	s := &Server{
 		GoServer: &goserver.GoServer{},
 		cmap:     make(map[string]interface{}),
+		running:  make(map[string]bool),
 	}
 	return s
 }
@@ -49,10 +58,38 @@ func (s *Server) Mote(ctx context.Context, master bool) error {
 }
 
 // GetState gets the state of the server
-func (s *Server) GetState() []*pbg.State {
-	return []*pbg.State{
-		&pbg.State{Key: "magic", Value: int64(12345)},
+func (s *Server) GetState() []*gspb.State {
+	return []*gspb.State{}
+}
+
+func (s *Server) runQueues(ctx context.Context) error {
+	conn, err := s.FDialServer(ctx, "dstore")
+	if err != nil {
+		return err
 	}
+	defer conn.Close()
+
+	client := dspb.NewDStoreServiceClient(conn)
+	res, err := client.Read(ctx, &dspb.ReadRequest{Key: fmt.Sprintf("/github.com/brotherlogic/queue/queues/%v", CONFIG_KEY)})
+	if err != nil {
+		return err
+	}
+
+	if res.GetConsensus() < 0.5 {
+		return fmt.Errorf("could not get read consensus (%v)", res.GetConsensus())
+	}
+
+	config := &pb.Config{}
+	err = proto.Unmarshal(res.GetValue().GetValue(), config)
+	if err != nil {
+		return err
+	}
+
+	for _, queue := range config.GetQueues() {
+		s.runQueue(queue)
+	}
+
+	return nil
 }
 
 func main() {
@@ -65,12 +102,13 @@ func main() {
 		return
 	}
 
-	time.Sleep(time.Second * 5)
-	server.cmap["recordcollection.RecordCollectionService"] = rcpb.NewRecordCollectionServiceClient
-	ctx, cancel := utils.ManualContext("queue-test", time.Minute)
-	defer cancel()
-	res, err := server.runRPC(ctx, "recordcollection.RecordCollectionService", "GetRecord", &rcpb.GetRecordRequest{InstanceId: 365221819})
-	server.Log(fmt.Sprintf("Run result: %v and %v", res, err))
+	ctx, cancel := utils.ManualContext("queue-init", time.Minute)
+	err = server.runQueues(ctx)
+	if err != nil {
+		cancel()
+		log.Fatalf("Unable to run initial queues: %v", err)
+	}
+	cancel()
 
 	fmt.Printf("%v", server.Serve())
 }
