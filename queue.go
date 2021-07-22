@@ -8,6 +8,8 @@ import (
 	"github.com/brotherlogic/goserver"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
 	dspb "github.com/brotherlogic/dstore/proto"
@@ -72,6 +74,11 @@ func (s *Server) runQueues(ctx context.Context) error {
 	client := dspb.NewDStoreServiceClient(conn)
 	res, err := client.Read(ctx, &dspb.ReadRequest{Key: fmt.Sprintf("/github.com/brotherlogic/queue/queues/%v", CONFIG_KEY)})
 	if err != nil {
+		// NotFound is expected if we have no data - and we do nothing here
+		if status.Convert(err).Code() == codes.NotFound {
+			return nil
+		}
+
 		return err
 	}
 
