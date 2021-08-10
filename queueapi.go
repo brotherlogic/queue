@@ -46,7 +46,7 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 		Deadline: req.GetDeadline(),
 	}
 
-	data, err := proto.Marshal(config)
+	data, err := proto.Marshal(queue)
 	if err != nil {
 		return nil, err
 	}
@@ -59,8 +59,14 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 		return nil, err
 	}
 
+	config.Queues = append(config.Queues, queue.GetName())
 	if wres.GetConsensus() < 0.5 {
 		return nil, fmt.Errorf("no consensus on write: %v", res.GetConsensus())
+	}
+
+	err = s.writeConfig(ctx, client, config)
+	if err != nil {
+		return nil, err
 	}
 
 	// Kick off running of the queue

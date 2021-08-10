@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/brotherlogic/goserver/utils"
+	google_protobuf "github.com/golang/protobuf/ptypes/any"
 	"golang.org/x/net/context"
 	"google.golang.org/protobuf/proto"
 
@@ -112,4 +113,24 @@ func (s *Server) buildClient(service string) (interface{}, error) {
 		return val, nil
 	}
 	return nil, fmt.Errorf("not quite implemented")
+}
+
+func (s *Server) writeConfig(ctx context.Context, dsc dspb.DStoreServiceClient, config *pb.Config) error {
+	data, err := proto.Marshal(config)
+	if err != nil {
+		return err
+	}
+	wres, err := dsc.Write(ctx, &dspb.WriteRequest{
+		Key:   CONFIG_KEY,
+		Value: &google_protobuf.Any{Value: data},
+	})
+
+	if err != nil {
+		return err
+	}
+
+	if wres.GetConsensus() < 0.5 {
+		return fmt.Errorf("no consensus on write: %v", wres.GetConsensus())
+	}
+	return nil
 }
