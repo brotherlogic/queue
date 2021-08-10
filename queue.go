@@ -28,8 +28,8 @@ var (
 )
 
 const (
-	CONFIG_KEY = "/github.com/brotherlogic/queue/config"
-	QUEUE_KEY  = "/github.com/brotherlogic/queue/queues"
+	CONFIG_KEY = "github.com/brotherlogic/queue/config"
+	QUEUE_KEY  = "github.com/brotherlogic/queue/queues"
 )
 
 //Server main server type
