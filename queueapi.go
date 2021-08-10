@@ -76,7 +76,6 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 	}
 
 	// Kick off running of the queue
-	numQueues.Inc()
 	s.runQueue(queue.GetName())
 
 	return &pb.AddQueueResponse{}, nil

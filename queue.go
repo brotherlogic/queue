@@ -102,7 +102,6 @@ func (s *Server) runQueues(ctx context.Context) error {
 		return err
 	}
 
-	numQueues.Set(float64(len(config.GetQueues())))
 	for _, queue := range config.GetQueues() {
 		s.runQueue(queue)
 	}

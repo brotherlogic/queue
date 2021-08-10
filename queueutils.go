@@ -68,6 +68,8 @@ func (s *Server) runQueue(queueName string) error {
 
 	s.running[queueName] = true
 
+	numQueues.Set(float64(len(s.running)))
+
 	go func() {
 		for s.running[queueName] {
 			nextRunTime := s.getNextRunTime(queueName)
