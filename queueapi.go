@@ -63,5 +63,8 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 		return nil, fmt.Errorf("no consensus on write: %v", res.GetConsensus())
 	}
 
+	// Kick off running of the queue
+	s.runQueue(queue.GetName())
+
 	return &pb.AddQueueResponse{}, nil
 }
