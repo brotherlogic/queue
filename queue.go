@@ -28,7 +28,8 @@ var (
 )
 
 const (
-	CONFIG_KEY = "/github.com/brotherlogic/queues/config"
+	CONFIG_KEY = "/github.com/brotherlogic/queue/config"
+	QUEUE_KEY  = "/github.com/brotherlogic/queue/queues"
 )
 
 //Server main server type
@@ -50,7 +51,7 @@ func Init() *Server {
 
 // DoRegister does RPC registration
 func (s *Server) DoRegister(server *grpc.Server) {
-
+	pb.RegisterQueueServiceServer(server, s)
 }
 
 // ReportHealth alerts if we're not healthy
@@ -81,7 +82,7 @@ func (s *Server) runQueues(ctx context.Context) error {
 	defer conn.Close()
 
 	client := dspb.NewDStoreServiceClient(conn)
-	res, err := client.Read(ctx, &dspb.ReadRequest{Key: fmt.Sprintf("/github.com/brotherlogic/queue/queues/%v", CONFIG_KEY)})
+	res, err := client.Read(ctx, &dspb.ReadRequest{Key: CONFIG_KEY})
 	if err != nil {
 		// NotFound is expected if we have no data - and we do nothing here
 		if status.Convert(err).Code() == codes.NotFound {

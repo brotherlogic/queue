@@ -31,3 +31,15 @@ message Entry {
 
     int64 run_time = 3;
 }
+
+message AddQueueRequest {
+    string name = 1;
+    string endpoint = 2;
+    int32 deadline = 3;
+}
+
+message AddQueueResponse {}
+
+service QueueService {
+    rpc AddQueue(AddQueueRequest) returns (AddQueueResponse) {};
+}
