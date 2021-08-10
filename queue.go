@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/brotherlogic/goserver"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -16,6 +18,13 @@ import (
 	gspb "github.com/brotherlogic/goserver/proto"
 	"github.com/brotherlogic/goserver/utils"
 	pb "github.com/brotherlogic/queue/proto"
+)
+
+var (
+	numQueues = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "queue_numqueues",
+		Help: "The number of running queues",
+	})
 )
 
 const (
@@ -92,6 +101,7 @@ func (s *Server) runQueues(ctx context.Context) error {
 		return err
 	}
 
+	numQueues.Set(float64(len(config.GetQueues())))
 	for _, queue := range config.GetQueues() {
 		s.runQueue(queue)
 	}
