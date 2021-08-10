@@ -40,6 +40,12 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 		return nil, err
 	}
 
+	for _, q := range config.GetQueues() {
+		if q == req.GetName() {
+			return nil, status.Errorf(codes.AlreadyExists, "This queue (%v) already exists", req.GetName())
+		}
+	}
+
 	queue := &pb.Queue{
 		Name:     req.GetName(),
 		Endpoint: req.GetEndpoint(),
