@@ -60,6 +60,7 @@ func (s *Server) getNextRunTime(name string) int64 {
 }
 
 func (s *Server) runQueue(queueName string) error {
+	s.Log(fmt.Sprintf("Running queue: %v", queueName))
 	for running := range s.running {
 		if queueName == running {
 			return fmt.Errorf("This queue is already running")
