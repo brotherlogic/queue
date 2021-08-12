@@ -153,7 +153,7 @@ func (s *Server) runQueue(queueName string) error {
 	s.Log(fmt.Sprintf("Running queue: %v", queueName))
 	for running := range s.running {
 		if queueName == running {
-			return fmt.Errorf("This queue is already running")
+			return fmt.Errorf("this queue is already running")
 		}
 	}
 
@@ -167,7 +167,8 @@ func (s *Server) runQueue(queueName string) error {
 
 			s.timeout(queueName, nextRunTime)
 
-			s.runQueueElement(queueName, deadline)
+			err := s.runQueueElement(queueName, deadline)
+			s.Log(fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
 		}
 	}()
 
