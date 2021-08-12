@@ -13,10 +13,10 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
+	"github.com/brotherlogic/goserver/utils"
 
 	dspb "github.com/brotherlogic/dstore/proto"
 	gspb "github.com/brotherlogic/goserver/proto"
-	"github.com/brotherlogic/goserver/utils"
 	pb "github.com/brotherlogic/queue/proto"
 )
 
@@ -37,6 +37,7 @@ type Server struct {
 	*goserver.GoServer
 	cmap    map[string]interface{}
 	running map[string]bool
+	chanmap map[string]chan bool
 }
 
 // Init builds the server
@@ -45,6 +46,7 @@ func Init() *Server {
 		GoServer: &goserver.GoServer{},
 		cmap:     make(map[string]interface{}),
 		running:  make(map[string]bool),
+		chanmap:  make(map[string]chan bool),
 	}
 	return s
 }

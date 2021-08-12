@@ -15,6 +15,31 @@ import (
 	pb "github.com/brotherlogic/queue/proto"
 )
 
+func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
+	conn, err := s.FDialServer(ctx, "dstore")
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+
+	data, err := proto.Marshal(queue)
+	if err != nil {
+		return err
+	}
+
+	client := dspb.NewDStoreServiceClient(conn)
+	res, err := client.Write(ctx, &dspb.WriteRequest{Key: fmt.Sprintf("/github.com/brotherlogic/queue/queues/%v", queue.GetName()), Value: &google_protobuf.Any{Value: data}})
+	if err != nil {
+		return err
+	}
+
+	if res.GetConsensus() < 0.5 {
+		return fmt.Errorf("could not get read consensus (%v)", res.GetConsensus())
+	}
+
+	return nil
+}
+
 func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) {
 	conn, err := s.FDialServer(ctx, "dstore")
 	if err != nil {
@@ -41,13 +66,13 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 	return queue, nil
 }
 
-func (s *Server) getNextRunTime(name string) int64 {
+func (s *Server) getNextRunTime(name string) (int64, time.Duration) {
 	ctx, cancel := utils.ManualContext("queue-"+name, time.Minute)
 	defer cancel()
 
 	queue, err := s.loadQueue(ctx, name)
 	if err != nil {
-		return time.Now().Add(time.Minute).Unix()
+		return time.Now().Add(time.Minute).Unix(), time.Minute
 	}
 	next := int64(-1)
 	for _, entry := range queue.GetEntries() {
@@ -56,7 +81,72 @@ func (s *Server) getNextRunTime(name string) int64 {
 		}
 	}
 
-	return next
+	return next, time.Second * time.Duration(queue.GetDeadline())
+}
+
+func (s *Server) runQueueElement(name string, deadline time.Duration) error {
+	ctx, cancel := utils.ManualContext("queue-rqe", deadline)
+	defer cancel()
+
+	// Acquire a lock to run the queue element
+	unlockKey, err := s.RunLockingElection(ctx, "queuelock-"+name)
+	if err != nil {
+		return err
+	}
+
+	queue, err := s.loadQueue(ctx, name)
+	if err != nil {
+		return err
+	}
+
+	// Get the latest entry
+	var latest *pb.Entry
+	for _, entry := range queue.GetEntries() {
+		if latest == nil || latest.GetRunTime() < entry.GetRunTime() {
+			latest = entry
+		}
+	}
+
+	if time.Since(time.Unix(latest.GetRunTime(), 0)) > 0 {
+		var pt proto.Message
+		err = proto.Unmarshal(latest.GetPayload().GetValue(), pt)
+		if err != nil {
+			return err
+		}
+
+		elems := strings.Split(queue.GetEndpoint(), "/")
+		err := s.runRPC(ctx, elems[0], elems[1], pt)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Remove the entry from the queue
+	var entries []*pb.Entry
+	for _, entry := range queue.GetEntries() {
+		if entry.GetKey() != latest.GetKey() {
+			entries = append(entries, entry)
+		}
+	}
+	queue.Entries = entries
+	err = s.saveQueue(ctx, queue)
+	if err != nil {
+		return err
+	}
+
+	return s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
+}
+
+func (s *Server) timeout(queue string, nrt int64) {
+	chn := s.chanmap[queue]
+
+	select {
+	case <-chn:
+		break
+	case <-time.After(time.Second * time.Duration(nrt)):
+		break
+	}
+
 }
 
 func (s *Server) runQueue(queueName string) error {
@@ -73,10 +163,11 @@ func (s *Server) runQueue(queueName string) error {
 
 	go func() {
 		for s.running[queueName] {
-			nextRunTime := s.getNextRunTime(queueName)
+			nextRunTime, deadline := s.getNextRunTime(queueName)
 
-			// Sleep this out
-			time.Sleep(time.Until(time.Unix(nextRunTime, 0)))
+			s.timeout(queueName, nextRunTime)
+
+			s.runQueueElement(queueName, deadline)
 		}
 	}()
 
