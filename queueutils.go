@@ -164,6 +164,7 @@ func (s *Server) runQueue(queueName string) error {
 	go func() {
 		for s.running[queueName] {
 			nextRunTime, deadline := s.getNextRunTime(queueName)
+			s.Log(fmt.Sprintf("Got nrt %v and deadline %v", nextRunTime, deadline))
 
 			s.timeout(queueName, nextRunTime)
 
