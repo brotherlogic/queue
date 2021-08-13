@@ -112,6 +112,8 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		return err
 	}
 
+	s.Log(fmt.Sprintf("Searching for entry : %v", len(queue.GetEntries())))
+
 	// Get the latest entry
 	var latest *pb.Entry
 	for _, entry := range queue.GetEntries() {
