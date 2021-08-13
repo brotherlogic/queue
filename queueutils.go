@@ -132,7 +132,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	if time.Since(time.Unix(latest.GetRunTime(), 0)) > 0 {
 		t, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(queue.GetType()))
 		if err != nil {
-			return err
+			return fmt.Errorf("Error finding proto (%v) -> %v", queue.GetType(), err)
 		}
 		pt := t.New().Interface()
 		err = proto.Unmarshal(latest.GetPayload().GetValue(), pt)
