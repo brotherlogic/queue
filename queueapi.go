@@ -80,3 +80,27 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 
 	return &pb.AddQueueResponse{}, nil
 }
+
+func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) (*pb.AddQueueItemResponse, error) {
+	queue, err := s.loadQueue(ctx, req.GetQueueName())
+	if err != nil {
+		return nil, err
+	}
+
+	queue.Entries = append(queue.Entries, &pb.Entry{
+		Key:     req.GetKey(),
+		Payload: req.GetPaylod(),
+		RunTime: req.GetRunTime(),
+	})
+	err = s.saveQueue(ctx, queue)
+	if err != nil {
+		return nil, err
+	}
+
+	// Trip another pass at the queue
+	if ch, ok := s.chanmap[req.GetQueueName()]; ok {
+		ch <- true
+	}
+
+	return &pb.AddQueueItemResponse{}, nil
+}

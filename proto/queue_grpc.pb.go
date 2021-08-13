@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QueueServiceClient interface {
 	AddQueue(ctx context.Context, in *AddQueueRequest, opts ...grpc.CallOption) (*AddQueueResponse, error)
+	AddQueueItem(ctx context.Context, in *AddQueueItemRequest, opts ...grpc.CallOption) (*AddQueueItemResponse, error)
 }
 
 type queueServiceClient struct {
@@ -38,11 +39,21 @@ func (c *queueServiceClient) AddQueue(ctx context.Context, in *AddQueueRequest, 
 	return out, nil
 }
 
+func (c *queueServiceClient) AddQueueItem(ctx context.Context, in *AddQueueItemRequest, opts ...grpc.CallOption) (*AddQueueItemResponse, error) {
+	out := new(AddQueueItemResponse)
+	err := c.cc.Invoke(ctx, "/queue.QueueService/AddQueueItem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueueServiceServer is the server API for QueueService service.
 // All implementations should embed UnimplementedQueueServiceServer
 // for forward compatibility
 type QueueServiceServer interface {
 	AddQueue(context.Context, *AddQueueRequest) (*AddQueueResponse, error)
+	AddQueueItem(context.Context, *AddQueueItemRequest) (*AddQueueItemResponse, error)
 }
 
 // UnimplementedQueueServiceServer should be embedded to have forward compatible implementations.
@@ -51,6 +62,9 @@ type UnimplementedQueueServiceServer struct {
 
 func (UnimplementedQueueServiceServer) AddQueue(context.Context, *AddQueueRequest) (*AddQueueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddQueue not implemented")
+}
+func (UnimplementedQueueServiceServer) AddQueueItem(context.Context, *AddQueueItemRequest) (*AddQueueItemResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddQueueItem not implemented")
 }
 
 // UnsafeQueueServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -82,6 +96,24 @@ func _QueueService_AddQueue_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _QueueService_AddQueueItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddQueueItemRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueueServiceServer).AddQueueItem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/queue.QueueService/AddQueueItem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueueServiceServer).AddQueueItem(ctx, req.(*AddQueueItemRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // QueueService_ServiceDesc is the grpc.ServiceDesc for QueueService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -92,6 +124,10 @@ var QueueService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddQueue",
 			Handler:    _QueueService_AddQueue_Handler,
+		},
+		{
+			MethodName: "AddQueueItem",
+			Handler:    _QueueService_AddQueueItem_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
