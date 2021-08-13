@@ -28,7 +28,7 @@ func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
 	}
 
 	client := dspb.NewDStoreServiceClient(conn)
-	res, err := client.Write(ctx, &dspb.WriteRequest{Key: fmt.Sprintf("/github.com/brotherlogic/queue/queues/%v", queue.GetName()), Value: &google_protobuf.Any{Value: data}})
+	res, err := client.Write(ctx, &dspb.WriteRequest{Key: fmt.Sprintf("%v/%v", QUEUE_KEY, queue.GetName()), Value: &google_protobuf.Any{Value: data}})
 	if err != nil {
 		return err
 	}

@@ -22,7 +22,7 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 
 	client := dspb.NewDStoreServiceClient(conn)
 
-	res, err := client.Read(ctx, &dspb.ReadRequest{Key: fmt.Sprintf("/github.com/brotherlogic/queue/queues/%v", CONFIG_KEY)})
+	res, err := client.Read(ctx, &dspb.ReadRequest{Key: CONFIG_KEY})
 	if status.Convert(err).Code() != codes.NotFound {
 
 		if err != nil {
