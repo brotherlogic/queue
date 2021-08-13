@@ -100,6 +100,8 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 	// Trip another pass at the queue
 	if ch, ok := s.chanmap[req.GetQueueName()]; ok {
 		ch <- true
+	} else {
+		s.Log(fmt.Sprintf("Cannot find channel for %v", req.GetQueueName()))
 	}
 
 	return &pb.AddQueueItemResponse{}, nil
