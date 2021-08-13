@@ -98,6 +98,10 @@ func (s *Server) getNextRunTime(name string) (time.Time, time.Duration) {
 		}
 	}
 
+	if next == -1 {
+		return time.Now().Add(time.Hour), time.Second * time.Duration(queue.GetDeadline())
+	}
+
 	return time.Unix(next, 0), time.Second * time.Duration(queue.GetDeadline())
 }
 
