@@ -102,6 +102,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	// Acquire a lock to run the queue element
 	unlockKey, err := s.RunLockingElection(ctx, "queuelock-"+name)
 	if err != nil {
+		time.Sleep(time.Minute)
 		return err
 	}
 
