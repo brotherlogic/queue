@@ -8,11 +8,20 @@ import (
 
 	"github.com/brotherlogic/goserver/utils"
 	google_protobuf "github.com/golang/protobuf/ptypes/any"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
 	"google.golang.org/protobuf/proto"
 
 	dspb "github.com/brotherlogic/dstore/proto"
 	pb "github.com/brotherlogic/queue/proto"
+)
+
+var (
+	queueLength = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_queuelength",
+		Help: "The number of running queues",
+	}, []string{"queue_name"})
 )
 
 func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
@@ -62,6 +71,8 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 	if err != nil {
 		return nil, err
 	}
+
+	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
 
 	return queue, nil
 }
