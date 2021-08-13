@@ -105,6 +105,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		time.Sleep(time.Minute)
 		return err
 	}
+	defer s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
 
 	queue, err := s.loadQueue(ctx, name)
 	if err != nil {
@@ -147,7 +148,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		return err
 	}
 
-	return s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
+	return nil
 }
 
 func (s *Server) timeout(queue string, nrt time.Time) {
