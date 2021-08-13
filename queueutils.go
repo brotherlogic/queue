@@ -11,6 +11,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/reflect/protoregistry"
 
 	dspb "github.com/brotherlogic/dstore/proto"
 	pb "github.com/brotherlogic/queue/proto"
@@ -74,6 +76,10 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 
 	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
 
+	if queue.GetType() == "" {
+		queue.Type = "recordcollection.ClientUpdateRequest"
+	}
+
 	return queue, nil
 }
 
@@ -124,7 +130,8 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 
 	s.Log(fmt.Sprintf("Acquired lock and entry for %v -> %v", queue.GetName(), latest))
 	if time.Since(time.Unix(latest.GetRunTime(), 0)) > 0 {
-		var pt proto.Message
+		t, _ := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(queue.GetType()))
+		pt := t.New().Interface()
 		err = proto.Unmarshal(latest.GetPayload().GetValue(), pt)
 		if err != nil {
 			return err

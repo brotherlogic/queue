@@ -22,6 +22,9 @@ message Queue {
 
     // The actual queue entries
     repeated Entry entries = 4;
+
+
+    string type = 5;
 }
 
 message Entry {
