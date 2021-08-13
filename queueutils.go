@@ -118,8 +118,6 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		return err
 	}
 
-	s.Log(fmt.Sprintf("Searching for entry : %v", len(queue.GetEntries())))
-
 	// Get the latest entry
 	var latest *pb.Entry
 	for _, entry := range queue.GetEntries() {
@@ -128,11 +126,10 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		}
 	}
 
-	s.Log(fmt.Sprintf("Acquired lock and entry for %v -> %v", queue.GetName(), latest))
 	if time.Since(time.Unix(latest.GetRunTime(), 0)) > 0 {
 		t, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(queue.GetType()))
 		if err != nil {
-			return fmt.Errorf("Error finding proto (%v) -> %v", queue.GetType(), err)
+			return fmt.Errorf("error finding proto (%v) -> %v", queue.GetType(), err)
 		}
 		pt := t.New().Interface()
 		err = proto.Unmarshal(latest.GetPayload().GetValue(), pt)

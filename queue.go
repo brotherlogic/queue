@@ -18,6 +18,7 @@ import (
 	dspb "github.com/brotherlogic/dstore/proto"
 	gspb "github.com/brotherlogic/goserver/proto"
 	pb "github.com/brotherlogic/queue/proto"
+	rcpb "github.com/brotherlogic/recordcollection/proto"
 )
 
 var (
@@ -48,7 +49,14 @@ func Init() *Server {
 		running:  make(map[string]bool),
 		chanmap:  make(map[string]chan bool),
 	}
+
+	s.buildClients()
+
 	return s
+}
+
+func (s *Server) buildClients() {
+	s.cmap["recordcollection.ClientUpdateService"] = rcpb.NewClientUpdateServiceClient
 }
 
 // DoRegister does RPC registration
