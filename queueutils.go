@@ -48,7 +48,7 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 	defer conn.Close()
 
 	client := dspb.NewDStoreServiceClient(conn)
-	res, err := client.Read(ctx, &dspb.ReadRequest{Key: fmt.Sprintf("/github.com/brotherlogic/queue/queues/%v", name)})
+	res, err := client.Read(ctx, &dspb.ReadRequest{Key: fmt.Sprintf("%v/%v", QUEUE_KEY, name)})
 	if err != nil {
 		return nil, err
 	}
