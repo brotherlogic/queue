@@ -89,7 +89,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 
 	queue.Entries = append(queue.Entries, &pb.Entry{
 		Key:     req.GetKey(),
-		Payload: req.GetPaylod(),
+		Payload: req.GetPayload(),
 		RunTime: req.GetRunTime(),
 	})
 	err = s.saveQueue(ctx, queue)
