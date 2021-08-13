@@ -119,6 +119,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		}
 	}
 
+	s.Log(fmt.Sprintf("Acquired lock and entry for %v -> %v", queue.GetName(), latest))
 	if time.Since(time.Unix(latest.GetRunTime(), 0)) > 0 {
 		var pt proto.Message
 		err = proto.Unmarshal(latest.GetPayload().GetValue(), pt)
