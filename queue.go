@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/brotherlogic/goserver"
+	"github.com/brotherlogic/goserver/utils"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
@@ -13,7 +14,6 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
-	"github.com/brotherlogic/goserver/utils"
 
 	dspb "github.com/brotherlogic/dstore/proto"
 	gspb "github.com/brotherlogic/goserver/proto"
@@ -107,6 +107,8 @@ func (s *Server) runQueues(ctx context.Context) error {
 	for _, queue := range config.GetQueues() {
 		s.runQueue(queue)
 	}
+
+	s.Log(fmt.Sprintf("Ran %v queues", len(config.GetQueues())))
 
 	return nil
 }

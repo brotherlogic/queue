@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/brotherlogic/goserver/utils"
-	google_protobuf "github.com/golang/protobuf/ptypes/any"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
@@ -15,6 +14,7 @@ import (
 
 	dspb "github.com/brotherlogic/dstore/proto"
 	pb "github.com/brotherlogic/queue/proto"
+	google_protobuf "github.com/golang/protobuf/ptypes/any"
 )
 
 var (
