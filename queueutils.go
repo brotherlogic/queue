@@ -77,13 +77,13 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 	return queue, nil
 }
 
-func (s *Server) getNextRunTime(name string) (int64, time.Duration) {
+func (s *Server) getNextRunTime(name string) (time.Time, time.Duration) {
 	ctx, cancel := utils.ManualContext("queue-"+name, time.Minute)
 	defer cancel()
 
 	queue, err := s.loadQueue(ctx, name)
 	if err != nil {
-		return time.Now().Add(time.Minute).Unix(), time.Minute
+		return time.Now().Add(time.Minute), time.Minute
 	}
 	next := int64(-1)
 	for _, entry := range queue.GetEntries() {
@@ -92,7 +92,7 @@ func (s *Server) getNextRunTime(name string) (int64, time.Duration) {
 		}
 	}
 
-	return next, time.Second * time.Duration(queue.GetDeadline())
+	return time.Unix(next, 0), time.Second * time.Duration(queue.GetDeadline())
 }
 
 func (s *Server) runQueueElement(name string, deadline time.Duration) error {
@@ -148,13 +148,13 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	return s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
 }
 
-func (s *Server) timeout(queue string, nrt int64) {
+func (s *Server) timeout(queue string, nrt time.Time) {
 	chn := s.chanmap[queue]
 
 	select {
 	case <-chn:
 		break
-	case <-time.After(time.Second * time.Duration(nrt)):
+	case <-time.After(time.Until(nrt)):
 		break
 	}
 
