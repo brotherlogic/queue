@@ -187,7 +187,6 @@ func (s *Server) runQueue(queueName string) error {
 	go func() {
 		for s.running[queueName] {
 			nextRunTime, deadline := s.getNextRunTime(queueName)
-			s.Log(fmt.Sprintf("Got nrt %v and deadline %v", nextRunTime, deadline))
 
 			s.timeout(queueName, nextRunTime)
 
@@ -200,7 +199,6 @@ func (s *Server) runQueue(queueName string) error {
 }
 
 func (s *Server) runRPC(ctx context.Context, service, method string, payload proto.Message) error {
-	s.Log(fmt.Sprintf("Running RPC: %v, %v -> %v", service, method, payload))
 	elements := strings.Split(service, ".")
 	conn, err := s.FDialServer(ctx, elements[0])
 	if err != nil {
