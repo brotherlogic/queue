@@ -8,13 +8,12 @@ import (
 	"time"
 
 	"github.com/brotherlogic/goserver/utils"
+	"google.golang.org/grpc/resolver"
+	"google.golang.org/protobuf/proto"
 
 	pb "github.com/brotherlogic/queue/proto"
-
-	//Needed to pull in gzip encoding init
-
-	_ "google.golang.org/grpc/encoding/gzip"
-	"google.golang.org/grpc/resolver"
+	rcpb "github.com/brotherlogic/recordcollection/proto"
+	google_protobuf "github.com/golang/protobuf/ptypes/any"
 )
 
 func init() {
@@ -44,6 +43,23 @@ func main() {
 				Name:     *name,
 				Deadline: int32(*deadline),
 				Endpoint: *endpoint,
+			})
+			fmt.Printf("%v -> %v\n", res, err)
+		}
+
+	case "item":
+		itemFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
+		var name = itemFlags.String("name", "", "Name of the queue")
+		var runTime = itemFlags.Int("run_time", int(time.Now().Unix()), "run time")
+		var iid = itemFlags.Int("iid", -1, "Endpoint to call")
+		if err := itemFlags.Parse(os.Args[2:]); err == nil {
+			update := &rcpb.ClientUpdateRequest{InstanceId: int32(*iid)}
+			data, _ := proto.Marshal(update)
+			res, err := client.AddQueueItem(ctx, &pb.AddQueueItemRequest{
+				QueueName: *name,
+				RunTime:   int64(*runTime),
+				Payload:   &google_protobuf.Any{Value: data},
+				Key:       fmt.Sprintf("%v", *iid),
 			})
 			fmt.Printf("%v -> %v\n", res, err)
 		}
