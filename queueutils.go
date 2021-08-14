@@ -185,7 +185,7 @@ func (s *Server) runQueue(queueName string) error {
 	}
 
 	s.running[queueName] = true
-	s.chanmap[queueName] = make(chan bool)
+	s.chanmap[queueName] = make(chan bool, 100)
 
 	numQueues.Set(float64(len(s.running)))
 
