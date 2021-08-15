@@ -10,6 +10,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
@@ -204,6 +205,13 @@ func (s *Server) runQueue(queueName string) error {
 	return nil
 }
 
+var (
+	queueCode = promauto.NewCounterVec(prometheus.CounterOpts{
+		Name: "queue_rpc_code",
+		Help: "The number of running queues",
+	}, []string{"code"})
+)
+
 func (s *Server) runRPC(ctx context.Context, service, method string, payload proto.Message) error {
 	elements := strings.Split(service, ".")
 	conn, err := s.FDialServer(ctx, elements[0])
@@ -225,11 +233,12 @@ func (s *Server) runRPC(ctx context.Context, service, method string, payload pro
 
 	err = nil
 	if results[1].Interface() != nil {
-		return results[1].Interface().(error)
-
+		err = results[1].Interface().(error)
 	}
 
-	return nil
+	queueCode.With(prometheus.Labels{"code": fmt.Sprintf("%v", status.Convert(err).Code())}).Inc()
+
+	return err
 }
 
 func (s *Server) buildClient(service string) (interface{}, error) {
