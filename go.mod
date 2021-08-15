@@ -6,8 +6,8 @@ require (
 	github.com/brotherlogic/buildserver v0.0.0-20210728184850-2807794331a0 // indirect
 	github.com/brotherlogic/dstore v0.0.0-20210728181450-e87a34c62535
 	github.com/brotherlogic/goserver v0.0.0-20210805130102-24f4ac0bb699
-	github.com/brotherlogic/recordcollection v0.0.0-20210808230243-7b0a70cc8ffd
-	github.com/brotherlogic/recordfanout v0.0.0-20210805010139-e0c48ca18fbe
+	github.com/brotherlogic/recordcollection v0.0.0-20210813194254-f1d438356916
+	github.com/brotherlogic/recordfanout v0.0.0-20210813203444-cd3715bac06e
 	github.com/golang/protobuf v1.5.2
 	github.com/prometheus/client_golang v1.11.0
 	github.com/prometheus/procfs v0.7.2 // indirect
