@@ -49,6 +49,8 @@ func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
 		return fmt.Errorf("could not get write consensus (%v)", res.GetConsensus())
 	}
 
+	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
+
 	return nil
 }
 
