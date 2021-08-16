@@ -135,6 +135,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	}
 
 	if time.Since(time.Unix(latest.GetRunTime(), 0)) > 0 {
+		s.Log(fmt.Sprintf("Running request %v since %v", time.Unix(latest.GetRunTime(), 0), time.Since(time.Unix(latest.GetRunTime(), 0))))
 		t, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(queue.GetType()))
 		if err != nil {
 			return fmt.Errorf("error finding proto (%v) -> %v", queue.GetType(), err)
