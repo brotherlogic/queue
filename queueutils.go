@@ -158,7 +158,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	}
 	var entries []*pb.Entry
 	for _, entry := range queue.GetEntries() {
-		if entry.GetKey() != latest.GetKey() && latest.GetRunTime() == entry.GetRunTime() {
+		if entry.GetKey() != latest.GetKey() && latest.GetRunTime() != entry.GetRunTime() {
 			entries = append(entries, entry)
 		}
 	}
