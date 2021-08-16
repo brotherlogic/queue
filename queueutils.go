@@ -150,23 +150,23 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		if err != nil {
 			return err
 		}
-	}
 
-	// Remove the entry from the queue - do a reload to stop stomping on changes
-	queue, err = s.loadQueue(ctx, name)
-	if err != nil {
-		return err
-	}
-	var entries []*pb.Entry
-	for _, entry := range queue.GetEntries() {
-		if entry.GetKey() != latest.GetKey() && latest.GetRunTime() != entry.GetRunTime() {
-			entries = append(entries, entry)
+		// Remove the entry from the queue - do a reload to stop stomping on changes
+		queue, err = s.loadQueue(ctx, name)
+		if err != nil {
+			return err
 		}
-	}
-	queue.Entries = entries
-	err = s.saveQueue(ctx, queue)
-	if err != nil {
-		return err
+		var entries []*pb.Entry
+		for _, entry := range queue.GetEntries() {
+			if entry.GetKey() != latest.GetKey() && latest.GetRunTime() != entry.GetRunTime() {
+				entries = append(entries, entry)
+			}
+		}
+		queue.Entries = entries
+		err = s.saveQueue(ctx, queue)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
