@@ -158,11 +158,13 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 			return err
 		}
 		var entries []*pb.Entry
+		l1 := len(queue.GetEntries())
 		for _, entry := range queue.GetEntries() {
 			if entry.GetKey() != latest.GetKey() && latest.GetRunTime() != entry.GetRunTime() {
 				entries = append(entries, entry)
 			}
 		}
+		s.Log("Removed %v -> %v", l1, len(entries))
 		queue.Entries = entries
 		err = s.saveQueue(ctx, queue)
 		if err != nil {
