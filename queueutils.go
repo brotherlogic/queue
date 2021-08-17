@@ -164,7 +164,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 				entries = append(entries, entry)
 			}
 		}
-		s.Log(fmt.Sprintf("Removed %v -> %v", l1, len(entries)))
+		s.Log(fmt.Sprintf("Removed %v -> %v (%v)", l1, len(entries), queue.Entries))
 		queue.Entries = entries
 		err = s.saveQueue(ctx, queue)
 		if err != nil {
