@@ -255,7 +255,7 @@ func (s *Server) buildClient(service string) (interface{}, error) {
 	if val, ok := s.cmap[service]; ok {
 		return val, nil
 	}
-	return nil, fmt.Errorf("not quite implemented")
+	return nil, fmt.Errorf("%v is not quite implemented", service)
 }
 
 func (s *Server) writeConfig(ctx context.Context, dsc dspb.DStoreServiceClient, config *pb.Config) error {
