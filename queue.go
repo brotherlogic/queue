@@ -18,6 +18,7 @@ import (
 	dspb "github.com/brotherlogic/dstore/proto"
 	gspb "github.com/brotherlogic/goserver/proto"
 	pb "github.com/brotherlogic/queue/proto"
+	rapb "github.com/brotherlogic/recordadder/proto"
 	rfopb "github.com/brotherlogic/recordfanout/proto"
 )
 
@@ -57,6 +58,7 @@ func Init() *Server {
 
 func (s *Server) buildClients() {
 	s.cmap["recordfanout.RecordFanoutService"] = rfopb.NewRecordFanoutServiceClient
+	s.cmap["recordadder.AddRecordService"] = rapb.NewRecordAdderServiceClient
 }
 
 // DoRegister does RPC registration
