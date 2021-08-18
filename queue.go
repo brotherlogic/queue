@@ -58,7 +58,7 @@ func Init() *Server {
 
 func (s *Server) buildClients() {
 	s.cmap["recordfanout.RecordFanoutService"] = rfopb.NewRecordFanoutServiceClient
-	s.cmap["recordadder.AddRecordService"] = rapb.NewRecordAdderServiceClient
+	s.cmap["recordadder.AddRecordService"] = rapb.NewAddRecordServiceClient
 }
 
 // DoRegister does RPC registration
