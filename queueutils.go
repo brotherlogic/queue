@@ -255,6 +255,7 @@ func (s *Server) runRPC(ctx context.Context, service, method string, payload pro
 }
 
 func (s *Server) buildClient(service string) (interface{}, error) {
+	s.Log(fmt.Sprintf("BUILT FOR %v", service))
 	if val, ok := s.cmap[service]; ok {
 		return val, nil
 	}
