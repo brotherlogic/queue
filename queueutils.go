@@ -10,6 +10,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -208,7 +209,9 @@ func (s *Server) runQueue(queueName string) error {
 			s.timeout(queueName, nextRunTime)
 
 			err := s.runQueueElement(queueName, deadline)
-			s.Log(fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
+			if status.Convert(err).Code() != codes.AlreadyExists {
+				s.Log(fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
+			}
 		}
 	}()
 
