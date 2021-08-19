@@ -96,7 +96,6 @@ func (s *Server) getNextRunTime(name string) (time.Time, time.Duration) {
 		return time.Now().Add(time.Minute), time.Minute
 	}
 	next := int64(-1)
-	s.Log(fmt.Sprintf("Getting NRT for %v with %v entries", name, len(queue.GetEntries())))
 	for _, entry := range queue.GetEntries() {
 		if next < 0 || entry.GetRunTime() < next {
 			next = entry.GetRunTime()
