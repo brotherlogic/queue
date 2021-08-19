@@ -204,7 +204,6 @@ func (s *Server) runQueue(queueName string) error {
 		for s.running[queueName] {
 			nextRunTime, deadline := s.getNextRunTime(queueName)
 
-			s.Log(fmt.Sprintf("Sleeping for %v", time.Until(nextRunTime)))
 			s.timeout(queueName, nextRunTime)
 
 			err := s.runQueueElement(queueName, deadline)
