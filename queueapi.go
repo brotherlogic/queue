@@ -14,6 +14,10 @@ import (
 )
 
 func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.AddQueueResponse, error) {
+	if req.GetType() == "" {
+		return nil, status.Errorf(codes.FailedPrecondition, "You must supply a type")
+	}
+
 	conn, err := s.FDialServer(ctx, "dstore")
 	if err != nil {
 		return nil, err
@@ -50,6 +54,7 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 		Name:     req.GetName(),
 		Endpoint: req.GetEndpoint(),
 		Deadline: req.GetDeadline(),
+		Type:     req.GetType(),
 	}
 
 	data, err := proto.Marshal(queue)

@@ -23,7 +23,7 @@ message Queue {
     // The actual queue entries
     repeated Entry entries = 4;
 
-
+    // The type for the request
     string type = 5;
 }
 
@@ -39,6 +39,7 @@ message AddQueueRequest {
     string name = 1;
     string endpoint = 2;
     int32 deadline = 3;
+    string type = 4;
 }
 
 message AddQueueResponse {}
