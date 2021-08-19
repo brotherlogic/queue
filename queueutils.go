@@ -149,7 +149,6 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		elems := strings.Split(queue.GetEndpoint(), "/")
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
-			time.Sleep(time.Minute)
 			return err
 		}
 
@@ -210,6 +209,9 @@ func (s *Server) runQueue(queueName string) error {
 			err := s.runQueueElement(queueName, deadline)
 			if status.Convert(err).Code() != codes.AlreadyExists {
 				s.Log(fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
+			}
+			if err != nil {
+				time.Sleep(time.Minute)
 			}
 		}
 	}()
