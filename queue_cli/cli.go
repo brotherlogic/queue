@@ -38,12 +38,13 @@ func main() {
 		var name = addFlags.String("name", "", "Name of the queue")
 		var deadline = addFlags.Int("deadline", 0, "Overall Deadline in seconds")
 		var endpoint = addFlags.String("endpoint", "", "Endpoint to call")
-		var type = addFlags.String("type", "", "The type of the request")
+		var typen = addFlags.String("type", "", "The type of the request")
 		if err := addFlags.Parse(os.Args[2:]); err == nil {
 			res, err := client.AddQueue(ctx, &pb.AddQueueRequest{
 				Name:     *name,
 				Deadline: int32(*deadline),
 				Endpoint: *endpoint,
+				Type:     *typen,
 			})
 			fmt.Printf("%v -> %v\n", res, err)
 		}
