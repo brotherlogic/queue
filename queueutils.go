@@ -79,8 +79,8 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 
 	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
 
-	if queue.GetType() == "" {
-		queue.Type = "recordfanout.FanoutRequest"
+	if queue.GetName() == "record_adder" {
+		queue.Type = "recordadder.ProcAddedRequest"
 	}
 
 	return queue, nil
