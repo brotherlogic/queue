@@ -149,6 +149,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		elems := strings.Split(queue.GetEndpoint(), "/")
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
+			time.Sleep(time.Minute)
 			return err
 		}
 
