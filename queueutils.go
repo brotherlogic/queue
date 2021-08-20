@@ -170,6 +170,8 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		if err != nil {
 			return err
 		}
+	} else {
+		return fmt.Errorf("nothing to run here")
 	}
 
 	return nil
