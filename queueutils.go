@@ -26,6 +26,11 @@ var (
 		Name: "queue_queuelength",
 		Help: "The number of running queues",
 	}, []string{"queue_name"})
+
+	releases = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_releases",
+		Help: "The number of running queues",
+	}, []string{"error"})
 )
 
 func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
@@ -119,8 +124,10 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		time.Sleep(time.Minute)
 		return err
 	}
-	defer s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
-
+	defer func() {
+		lerr := s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
+		releases.With(prometheus.Labels{"error": fmt.Sprintf("%v", lerr)}).Inc()
+	}()
 	queue, err := s.loadQueue(ctx, name)
 	if err != nil {
 		return err
