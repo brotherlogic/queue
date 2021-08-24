@@ -11,6 +11,7 @@ import (
 	"google.golang.org/grpc/resolver"
 	"google.golang.org/protobuf/proto"
 
+	dspb "github.com/brotherlogic/dstore/proto"
 	pb "github.com/brotherlogic/queue/proto"
 	fopb "github.com/brotherlogic/recordfanout/proto"
 	google_protobuf "github.com/golang/protobuf/ptypes/any"
@@ -64,6 +65,36 @@ func main() {
 				Key:       fmt.Sprintf("%v", *iid),
 			})
 			fmt.Printf("%v -> %v\n", res, err)
+		}
+	case "peek":
+		itemFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
+		var name = itemFlags.String("name", "", "Name of the queue")
+		if err := itemFlags.Parse(os.Args[2:]); err == nil {
+			conn, err := utils.LFDialServer(ctx, "dstore")
+			if err != nil {
+				log.Fatalf("Err: %v", err)
+			}
+			defer conn.Close()
+
+			client := dspb.NewDStoreServiceClient(conn)
+			res, err := client.Read(ctx, &dspb.ReadRequest{Key: fmt.Sprintf("%v/%v", "github.com/brotherlogic/queue/queues", *name)})
+			if err != nil {
+				log.Fatalf("Err: %v", err)
+			}
+
+			if res.GetConsensus() < 0.5 {
+				log.Fatalf("could not get read consensus (%v)", res.GetConsensus())
+			}
+
+			queue := &pb.Queue{}
+			err = proto.Unmarshal(res.GetValue().GetValue(), queue)
+			if err != nil {
+				log.Fatalf("Err: %v", err)
+			}
+
+			for i, elem := range queue.GetEntries() {
+				log.Printf("%v - %v [%v]", i, elem, time.Unix(elem.GetRunTime(), 0))
+			}
 		}
 	}
 

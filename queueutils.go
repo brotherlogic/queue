@@ -136,7 +136,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	// Get the latest entry
 	var latest *pb.Entry
 	for _, entry := range queue.GetEntries() {
-		if latest == nil || latest.GetRunTime() < entry.GetRunTime() {
+		if latest == nil || entry.GetRunTime() < latest.GetRunTime() {
 			latest = entry
 		}
 	}
