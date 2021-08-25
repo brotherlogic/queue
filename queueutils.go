@@ -251,8 +251,6 @@ func (s *Server) runRPC(ctx context.Context, service, method string, payload pro
 	pieces := fc.Call([]reflect.Value{reflect.ValueOf(conn)})
 	methodFunc := reflect.ValueOf(pieces[0].Interface()).MethodByName(method).Interface()
 
-	s.Log(fmt.Sprintf("Turned into %v -> %+v (%v),%v", reflect.ValueOf(payload), methodFunc, method, reflect.ValueOf(methodFunc)))
-
 	results := reflect.ValueOf(methodFunc).Call([]reflect.Value{reflect.ValueOf(ctx), reflect.ValueOf(payload)})
 
 	err = nil
