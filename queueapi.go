@@ -97,7 +97,6 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		Payload: req.GetPayload(),
 		RunTime: req.GetRunTime(),
 	})
-	s.Log(fmt.Sprintf("Added %v to %v -> %v", req, req.GetQueueName(), len(queue.Entries)))
 	err = s.saveQueue(ctx, queue)
 	if err != nil {
 		return nil, err
