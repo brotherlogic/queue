@@ -200,6 +200,8 @@ github.com/brotherlogic/recordfanout v0.0.0-20210813195020-95d0f24ed81b/go.mod h
 github.com/brotherlogic/recordfanout v0.0.0-20210816000515-1da4a1ed04b4/go.mod h1:PvIy6MuVnxw5b7HE1+1wMT+0XDVWUpf7jjGjpLUnAbA=
 github.com/brotherlogic/recordfanout v0.0.0-20210817224219-3042f7b95e03 h1:N40OcrfccTRMp3XSMi71lQYdg3jyIFqZ7hGX+few5II=
 github.com/brotherlogic/recordfanout v0.0.0-20210817224219-3042f7b95e03/go.mod h1:PvIy6MuVnxw5b7HE1+1wMT+0XDVWUpf7jjGjpLUnAbA=
+github.com/brotherlogic/recordfanout v0.0.0-20210826013058-c66d8479bcb3 h1:VOUARNBcuiZbpd+UKI/G8bVQxmenxwpqiEX3KjoC0jw=
+github.com/brotherlogic/recordfanout v0.0.0-20210826013058-c66d8479bcb3/go.mod h1:cACNtwa4COzz7cWdSKmcI3nszGRi39QofbncWHKZPVU=
 github.com/brotherlogic/recordgetter v0.0.0-20201227170856-8696381a15a9/go.mod h1:yJmhM51lcaJ2zYRD9wBuaG+u2anrS+lMMV/x9hXruaQ=
 github.com/brotherlogic/recordmatcher v0.0.0-20200923211800-13a99af8f4cf/go.mod h1:kOa/fmama1cU+hgn6xfBSHjthqtQeVRO0lf2AyhKohY=
 github.com/brotherlogic/recordmatcher v0.0.0-20210622165532-1d0abf549ba0/go.mod h1:UIOArsnGI8Jzrp2273789jBOf06wCdeuCEffCKfHTgc=
