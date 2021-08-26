@@ -31,6 +31,11 @@ var (
 		Name: "queue_releases",
 		Help: "The number of running queues",
 	}, []string{"error", "queue"})
+
+	chanLength = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_chanlength",
+		Help: "The number of running queues",
+	}, []string{"queue_name"})
 )
 
 func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
@@ -185,6 +190,8 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 
 func (s *Server) timeout(queue string, nrt time.Time) {
 	chn := s.chanmap[queue]
+
+	chanLength.With(prometheus.Labels{"queue_name": queue}).Set(float64(len(chn)))
 
 	select {
 	case <-chn:
