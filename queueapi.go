@@ -111,3 +111,27 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 
 	return &pb.AddQueueItemResponse{}, nil
 }
+
+func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemRequest) (*pb.DeleteQueueItemResponse, error) {
+	queue, err := s.loadQueue(ctx, req.GetQueueName())
+	if err != nil {
+		return nil, err
+	}
+
+	var latest *pb.Entry
+	for _, q := range queue.GetEntries() {
+		if latest == nil || q.GetRunTime() < latest.GetRunTime() {
+			latest = q
+		}
+	}
+
+	var entries []*pb.Entry
+	for _, q := range queue.GetEntries() {
+		if q.GetKey() != latest.GetKey() || q.GetRunTime() != latest.GetRunTime() {
+			entries = append(entries, q)
+		}
+	}
+	queue.Entries = entries
+
+	return &pb.DeleteQueueItemResponse{}, s.saveQueue(ctx, queue)
+}

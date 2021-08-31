@@ -53,7 +53,14 @@ message AddQueueItemRequest {
 
 message AddQueueItemResponse {}
 
+message DeleteQueueItemRequest {
+    string queue_name = 1;
+}
+
+message DeleteQueueItemResponse {}
+
 service QueueService {
     rpc AddQueue(AddQueueRequest) returns (AddQueueResponse) {};
     rpc AddQueueItem(AddQueueItemRequest) returns (AddQueueItemResponse) {};
+    rpc DeleteQueueItem(DeleteQueueItemRequest) returns (DeleteQueueItemResponse) {};
 }

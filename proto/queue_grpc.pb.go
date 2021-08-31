@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type QueueServiceClient interface {
 	AddQueue(ctx context.Context, in *AddQueueRequest, opts ...grpc.CallOption) (*AddQueueResponse, error)
 	AddQueueItem(ctx context.Context, in *AddQueueItemRequest, opts ...grpc.CallOption) (*AddQueueItemResponse, error)
+	DeleteQueueItem(ctx context.Context, in *DeleteQueueItemRequest, opts ...grpc.CallOption) (*DeleteQueueItemResponse, error)
 }
 
 type queueServiceClient struct {
@@ -48,12 +49,22 @@ func (c *queueServiceClient) AddQueueItem(ctx context.Context, in *AddQueueItemR
 	return out, nil
 }
 
+func (c *queueServiceClient) DeleteQueueItem(ctx context.Context, in *DeleteQueueItemRequest, opts ...grpc.CallOption) (*DeleteQueueItemResponse, error) {
+	out := new(DeleteQueueItemResponse)
+	err := c.cc.Invoke(ctx, "/queue.QueueService/DeleteQueueItem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueueServiceServer is the server API for QueueService service.
 // All implementations should embed UnimplementedQueueServiceServer
 // for forward compatibility
 type QueueServiceServer interface {
 	AddQueue(context.Context, *AddQueueRequest) (*AddQueueResponse, error)
 	AddQueueItem(context.Context, *AddQueueItemRequest) (*AddQueueItemResponse, error)
+	DeleteQueueItem(context.Context, *DeleteQueueItemRequest) (*DeleteQueueItemResponse, error)
 }
 
 // UnimplementedQueueServiceServer should be embedded to have forward compatible implementations.
@@ -65,6 +76,9 @@ func (UnimplementedQueueServiceServer) AddQueue(context.Context, *AddQueueReques
 }
 func (UnimplementedQueueServiceServer) AddQueueItem(context.Context, *AddQueueItemRequest) (*AddQueueItemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddQueueItem not implemented")
+}
+func (UnimplementedQueueServiceServer) DeleteQueueItem(context.Context, *DeleteQueueItemRequest) (*DeleteQueueItemResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteQueueItem not implemented")
 }
 
 // UnsafeQueueServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -114,6 +128,24 @@ func _QueueService_AddQueueItem_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _QueueService_DeleteQueueItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteQueueItemRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueueServiceServer).DeleteQueueItem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/queue.QueueService/DeleteQueueItem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueueServiceServer).DeleteQueueItem(ctx, req.(*DeleteQueueItemRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // QueueService_ServiceDesc is the grpc.ServiceDesc for QueueService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -128,6 +160,10 @@ var QueueService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddQueueItem",
 			Handler:    _QueueService_AddQueueItem_Handler,
+		},
+		{
+			MethodName: "DeleteQueueItem",
+			Handler:    _QueueService_DeleteQueueItem_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
