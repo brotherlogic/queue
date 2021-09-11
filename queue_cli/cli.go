@@ -34,6 +34,13 @@ func main() {
 	client := pb.NewQueueServiceClient(conn)
 
 	switch os.Args[1] {
+	case "delete":
+		deleteFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
+		var name = deleteFlags.String("name", "", "Name of the queue")
+		if err := deleteFlags.Parse(os.Args[2:]); err == nil {
+			_, err := client.DeleteQueueItem(ctx, &pb.DeleteQueueItemRequest{QueueName: *name})
+			fmt.Printf("Delete: %v\n", err)
+		}
 	case "add":
 		addFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
 		var name = addFlags.String("name", "", "Name of the queue")
@@ -93,7 +100,7 @@ func main() {
 			}
 
 			for i, elem := range queue.GetEntries() {
-				log.Printf("%v - %v [%v]", i, elem, time.Unix(elem.GetRunTime(), 0))
+				fmt.Printf("%v - %v [%v]\n", i, elem, time.Unix(elem.GetRunTime(), 0))
 			}
 		}
 	}

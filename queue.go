@@ -114,6 +114,10 @@ func (s *Server) runQueues(ctx context.Context) error {
 		return err
 	}
 
+	if len(config.GetQueues()) == 0 {
+		config.Queues = []string{"record_fanout", "record_adder"}
+	}
+
 	for _, queue := range config.GetQueues() {
 		s.runQueue(queue)
 	}
