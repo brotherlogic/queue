@@ -90,8 +90,8 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 
 	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
 
-	if queue.GetName() == "record_adder" {
-		queue.Type = "recordadder.ProcAddedRequest"
+	if queue.GetName() == "wants_sync" {
+		queue.Endpoint = "recordwants.WantsService/Sync"
 	}
 
 	return queue, nil
