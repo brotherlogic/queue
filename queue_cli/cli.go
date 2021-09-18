@@ -13,7 +13,7 @@ import (
 
 	dspb "github.com/brotherlogic/dstore/proto"
 	pb "github.com/brotherlogic/queue/proto"
-	fopb "github.com/brotherlogic/recordfanout/proto"
+	rwpb "github.com/brotherlogic/recordwants/proto"
 	google_protobuf "github.com/golang/protobuf/ptypes/any"
 )
 
@@ -63,7 +63,7 @@ func main() {
 		var runTime = itemFlags.Int("run_time", int(time.Now().Unix()), "run time")
 		var iid = itemFlags.Int("iid", -1, "Endpoint to call")
 		if err := itemFlags.Parse(os.Args[2:]); err == nil {
-			update := &fopb.FanoutRequest{InstanceId: int32(*iid)}
+			update := &rwpb.SyncRequest{}
 			data, _ := proto.Marshal(update)
 			res, err := client.AddQueueItem(ctx, &pb.AddQueueItemRequest{
 				QueueName: *name,
