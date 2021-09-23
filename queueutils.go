@@ -79,7 +79,7 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 	}
 
 	if res.GetConsensus() < 0.5 {
-		return nil, fmt.Errorf("could not get read consensus (%v)", res.GetConsensus())
+		return nil, fmt.Errorf("could not find read consensus (%v)", res.GetConsensus())
 	}
 
 	queue := &pb.Queue{}
