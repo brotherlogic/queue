@@ -21,6 +21,7 @@ import (
 	rapb "github.com/brotherlogic/recordadder/proto"
 	rfopb "github.com/brotherlogic/recordfanout/proto"
 	rwpb "github.com/brotherlogic/recordwants/proto"
+	tpb "github.com/brotherlogic/temp/proto"
 )
 
 var (
@@ -61,6 +62,7 @@ func (s *Server) buildClients() {
 	s.cmap["recordfanout.RecordFanoutService"] = rfopb.NewRecordFanoutServiceClient
 	s.cmap["recordadder.AddRecordService"] = rapb.NewAddRecordServiceClient
 	s.cmap["recordwants.WantsService"] = rwpb.NewWantServiceClient
+	s.cmap["temp.TempService"] = tpb.NewTempServiceClient
 }
 
 // DoRegister does RPC registration
