@@ -11,6 +11,8 @@ import (
 	dspb "github.com/brotherlogic/dstore/proto"
 	pb "github.com/brotherlogic/queue/proto"
 	google_protobuf "github.com/golang/protobuf/ptypes/any"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 )
 
 func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.AddQueueResponse, error) {
@@ -86,10 +88,23 @@ func (s *Server) AddQueue(ctx context.Context, req *pb.AddQueueRequest) (*pb.Add
 	return &pb.AddQueueResponse{}, nil
 }
 
+var (
+	queueDrop = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_drops",
+		Help: "The number of running queues",
+	}, []string{"name"})
+)
+
 func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) (*pb.AddQueueItemResponse, error) {
 	queue, err := s.loadQueue(ctx, req.GetQueueName())
 	if err != nil {
 		return nil, err
+	}
+
+	//Silent exit when the queue is full
+	if queue.GetMaxLength() > 0 && len(queue.Entries) >= int(queue.MaxLength) {
+		queueDrop.With(prometheus.Labels{"name": req.GetQueueName()}).Inc()
+		return &pb.AddQueueItemResponse{}, nil
 	}
 
 	queue.Entries = append(queue.Entries, &pb.Entry{

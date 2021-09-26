@@ -25,6 +25,9 @@ message Queue {
 
     // The type for the request
     string type = 5;
+
+    // Max queue length
+    int32 max_length = 6;
 }
 
 message Entry {

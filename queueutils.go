@@ -92,7 +92,7 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 
 	if queue.GetName() == "temp" {
 		s.RaiseIssue("Correcting", "Correcting sync typo")
-		queue.Type = "temp.ProcRequest"
+		queue.MaxLength = 2
 	}
 
 	return queue, nil
