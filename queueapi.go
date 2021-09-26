@@ -102,7 +102,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 	}
 
 	//Silent exit when the queue is full
-	if queue.GetMaxLength() > 0 && len(queue.Entries) >= int(queue.MaxLength) {
+	if queue.GetMaxLength() > 0 && len(queue.Entries) > int(queue.MaxLength) {
 		queueDrop.With(prometheus.Labels{"name": req.GetQueueName()}).Inc()
 		return &pb.AddQueueItemResponse{}, nil
 	}
