@@ -177,7 +177,6 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 			}
 		}
 
-		s.Log(fmt.Sprintf("%v reduced %v -> %v", queue.GetName(), len(queue.GetEntries()), len(entries)))
 		queue.Entries = entries
 		err = s.saveQueue(ctx, queue)
 		if err != nil {
