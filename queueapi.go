@@ -107,6 +107,21 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		return &pb.AddQueueItemResponse{}, nil
 	}
 
+	// If we're running on unique keys
+	seen := false
+	if queue.GetUniqueKeys() {
+		for _, e := range queue.GetEntries() {
+			if e.GetKey() == req.GetKey() {
+				if seen {
+					// Silent return
+					return &pb.AddQueueItemResponse{}, nil
+				} else {
+					seen = true
+				}
+			}
+		}
+	}
+
 	queue.Entries = append(queue.Entries, &pb.Entry{
 		Key:     req.GetKey(),
 		Payload: req.GetPayload(),
