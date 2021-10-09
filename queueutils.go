@@ -90,10 +90,10 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 
 	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
 
-	/*if queue.GetName() == "wants_sync" {
-		s.RaiseIssue("Correcting", "Correcting wants sync length")
+	if queue.GetName() == "record_adder" {
+		s.RaiseIssue("Correcting", "Correcting recordadder")
 		queue.MaxLength = 2
-	}*/
+	}
 
 	return queue, nil
 }
