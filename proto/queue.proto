@@ -55,6 +55,7 @@ message AddQueueItemRequest {
     string key = 2;
     google.protobuf.Any payload = 3;
     int64 run_time = 4;
+    bool require_unique = 5;
 }
 
 message AddQueueItemResponse {}

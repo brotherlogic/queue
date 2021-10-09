@@ -122,6 +122,15 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		}
 	}
 
+	if req.GetRequireUnique() {
+		for _, e := range queue.GetEntries() {
+			if e.GetKey() == req.GetKey() {
+				// Silent return
+				return &pb.AddQueueItemResponse{}, nil
+			}
+		}
+	}
+
 	queue.Entries = append(queue.Entries, &pb.Entry{
 		Key:     req.GetKey(),
 		Payload: req.GetPayload(),
