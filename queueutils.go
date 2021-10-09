@@ -91,7 +91,7 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
 
 	if queue.GetName() == "sale_update" {
-		s.RaiseIssue("Correcting", "Correcting sale_update")
+		s.RaiseIssue("Correcting", "Correcting sale update")
 		queue.UniqueKeys = true
 	}
 
