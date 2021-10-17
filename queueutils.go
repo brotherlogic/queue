@@ -188,7 +188,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 			return err
 		}
 	} else {
-		return fmt.Errorf("nothing to run here (%v) until %v", latest.GetKey(), time.Until(time.Unix(latest.GetRunTime(), 0)))
+		return status.Errorf(codes.InvalidArgument, "nothing to run here (%v) until %v", latest.GetKey(), time.Until(time.Unix(latest.GetRunTime(), 0)))
 	}
 
 	return nil
