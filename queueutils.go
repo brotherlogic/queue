@@ -35,6 +35,11 @@ var (
 		Name: "queue_chanlength",
 		Help: "The number of running queues",
 	}, []string{"queue_name"})
+
+	errors = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_errors",
+		Help: "The number of running queues",
+	}, []string{"queue_name"})
 )
 
 func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
@@ -229,7 +234,10 @@ func (s *Server) runQueue(queueName string) error {
 					s.RaiseIssue(fmt.Sprintf("Error running queue: %v", queueName), fmt.Sprintf("Last error: %v", err))
 				}
 				time.Sleep(time.Minute)
+			} else {
+				s.errorCount[queueName] = 0
 			}
+			errors.With(prometheus.Labels{"queue_name": queueName}).Set(float64(s.errorCount[queueName]))
 		}
 	}()
 
