@@ -61,7 +61,7 @@ func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
 	}
 
 	if res.GetConsensus() < 0.5 {
-		return fmt.Errorf("could not get write consensus (%v)", res.GetConsensus())
+		return fmt.Errorf("could not get write for queue %v consensus (%v)", queue.GetName(), res.GetConsensus())
 	}
 
 	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
@@ -83,7 +83,7 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 	}
 
 	if res.GetConsensus() < 0.5 {
-		return nil, fmt.Errorf("could not find read consensus (%v)", res.GetConsensus())
+		return nil, fmt.Errorf("could not find read consensus for queue %v (%v)", name, res.GetConsensus())
 	}
 
 	queue := &pb.Queue{}
