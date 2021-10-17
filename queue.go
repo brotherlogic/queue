@@ -40,18 +40,20 @@ const (
 //Server main server type
 type Server struct {
 	*goserver.GoServer
-	cmap    map[string]interface{}
-	running map[string]bool
-	chanmap map[string]chan bool
+	cmap       map[string]interface{}
+	running    map[string]bool
+	chanmap    map[string]chan bool
+	errorCount map[string]int
 }
 
 // Init builds the server
 func Init() *Server {
 	s := &Server{
-		GoServer: &goserver.GoServer{},
-		cmap:     make(map[string]interface{}),
-		running:  make(map[string]bool),
-		chanmap:  make(map[string]chan bool),
+		GoServer:   &goserver.GoServer{},
+		cmap:       make(map[string]interface{}),
+		running:    make(map[string]bool),
+		chanmap:    make(map[string]chan bool),
+		errorCount: make(map[string]int),
 	}
 
 	s.buildClients()
