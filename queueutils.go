@@ -10,6 +10,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -230,7 +231,7 @@ func (s *Server) runQueue(queueName string) error {
 			s.Log(fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
 			if err != nil {
 				s.errorCount[queueName]++
-				if s.errorCount[queueName] > 10 {
+				if s.errorCount[queueName] > 10 && status.Convert(err).Code() == codes.Unknown {
 					s.RaiseIssue(fmt.Sprintf("Error running queue: %v", queueName), fmt.Sprintf("Last error: %v", err))
 				}
 				time.Sleep(time.Minute)
