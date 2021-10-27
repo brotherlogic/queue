@@ -228,7 +228,9 @@ func (s *Server) runQueue(queueName string) error {
 			s.timeout(queueName, nextRunTime)
 
 			err := s.runQueueElement(queueName, deadline)
-			s.Log(fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
+			if status.Convert(err).Code() != codes.AlreadyExists {
+				s.Log(fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
+			}
 			if err != nil {
 				s.errorCount[queueName]++
 				if s.errorCount[queueName] > 10 && status.Convert(err).Code() == codes.Unknown {
