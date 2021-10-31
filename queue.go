@@ -15,6 +15,7 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
+	bpb "github.com/brotherlogic/backup/proto"
 	dspb "github.com/brotherlogic/dstore/proto"
 	gspb "github.com/brotherlogic/goserver/proto"
 	pb "github.com/brotherlogic/queue/proto"
@@ -67,6 +68,7 @@ func (s *Server) buildClients() {
 	s.cmap["recordwants.WantsService"] = rwpb.NewWantServiceClient
 	s.cmap["temp.TempService"] = tpb.NewTempServiceClient
 	s.cmap["recordsales.SaleService"] = rspb.NewSaleServiceClient
+	s.cmap["backup.BackupService"] = bpb.NewBackupServiceClient
 }
 
 // DoRegister does RPC registration
