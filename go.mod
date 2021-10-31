@@ -3,9 +3,9 @@ module github.com/brotherlogic/queue
 go 1.16
 
 require (
-	github.com/brotherlogic/backup v0.0.0-20211030232342-c73fa1ecf3c0
+	github.com/brotherlogic/backup v0.0.0-20211031003304-0cb73ad241d3
 	github.com/brotherlogic/dstore v0.0.0-20211028192039-b11820344e93
-	github.com/brotherlogic/goserver v0.0.0-20211028191708-74e1ad9111cf
+	github.com/brotherlogic/goserver v0.0.0-20211031221705-0814a34af977
 	github.com/brotherlogic/recordadder v0.0.0-20211027173513-a9156029c77e
 	github.com/brotherlogic/recordfanout v0.0.0-20210826013058-c66d8479bcb3
 	github.com/brotherlogic/recordsales v0.0.0-20211020034930-11d8e8ab8946
@@ -14,6 +14,7 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/prometheus/client_golang v1.11.0
 	golang.org/x/net v0.0.0-20211029224645-99673261e6eb
+	golang.org/x/sys v0.0.0-20211031064116-611d5d643895 // indirect
 	google.golang.org/grpc v1.41.0
 	google.golang.org/protobuf v1.27.1
 )
