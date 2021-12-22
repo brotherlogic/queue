@@ -199,10 +199,13 @@ func (s *Server) timeout(queue string, nrt time.Time) {
 
 	chanLength.With(prometheus.Labels{"queue_name": queue}).Set(float64(len(chn)))
 
+	s.CtxLog(context.Background(), fmt.Sprintf("Waiting on %v -> %v", queue, nrt))
 	select {
 	case <-chn:
+		s.CtxLog(context.Background(), fmt.Sprintf("Waiting on %v -> INTERRUPT", queue))
 		break
 	case <-time.After(time.Until(nrt)):
+		s.CtxLog(context.Background(), fmt.Sprintf("Waiting on %v -> ELAPSE", queue))
 		break
 	}
 
