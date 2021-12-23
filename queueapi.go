@@ -119,6 +119,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 				if seen {
 					// Silent return
 					queueUDrop.With(prometheus.Labels{"name": queue.GetName() + "-silent"}).Inc()
+					s.CtxLog(ctx, fmt.Sprintf("UNIQUE DROPPING %v", req))
 					return &pb.AddQueueItemResponse{}, nil
 				} else {
 					seen = true
@@ -132,6 +133,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 			if e.GetKey() == req.GetKey() && e.State != pb.Entry_RUNNING {
 				// Silent return
 				queueUDrop.With(prometheus.Labels{"name": queue.GetName()}).Inc()
+				s.CtxLog(ctx, fmt.Sprintf("REQUNIQUE DROPPING %v", req))
 				return &pb.AddQueueItemResponse{}, nil
 			}
 		}
