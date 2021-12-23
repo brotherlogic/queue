@@ -152,6 +152,12 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		}
 	}
 
+	latest.State = pb.Entry_RUNNING
+	err = s.saveQueue(ctx, queue)
+	if err != nil {
+		return err
+	}
+
 	if time.Since(time.Unix(latest.GetRunTime(), 0)) > 0 {
 		t, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(queue.GetType()))
 		if err != nil {
@@ -165,12 +171,6 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 
 		elems := strings.Split(queue.GetEndpoint(), "/")
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
-		if err != nil {
-			return err
-		}
-
-		// Remove the entry from the queue - do a reload to stop stomping on changes
-		queue, err = s.loadQueue(ctx, name)
 		if err != nil {
 			return err
 		}
@@ -199,13 +199,10 @@ func (s *Server) timeout(queue string, nrt time.Time) {
 
 	chanLength.With(prometheus.Labels{"queue_name": queue}).Set(float64(len(chn)))
 
-	s.CtxLog(context.Background(), fmt.Sprintf("Waiting on %v -> %v", queue, nrt))
 	select {
 	case <-chn:
-		s.CtxLog(context.Background(), fmt.Sprintf("Waiting on %v -> INTERRUPT", queue))
 		break
 	case <-time.After(time.Until(nrt)):
-		s.CtxLog(context.Background(), fmt.Sprintf("Waiting on %v -> ELAPSE", queue))
 		break
 	}
 

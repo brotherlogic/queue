@@ -93,6 +93,10 @@ var (
 		Name: "queue_drops",
 		Help: "The number of running queues",
 	}, []string{"name"})
+	queueUDrop = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_unique_drops",
+		Help: "The number of running queues",
+	}, []string{"name"})
 )
 
 func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) (*pb.AddQueueItemResponse, error) {
@@ -124,8 +128,9 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 
 	if req.GetRequireUnique() {
 		for _, e := range queue.GetEntries() {
-			if e.GetKey() == req.GetKey() {
+			if e.GetKey() == req.GetKey() && e.State != pb.Entry_RUNNING {
 				// Silent return
+				queueUDrop.With(prometheus.Labels{"name": queue.GetName()}).Inc()
 				return &pb.AddQueueItemResponse{}, nil
 			}
 		}

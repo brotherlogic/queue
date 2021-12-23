@@ -39,6 +39,12 @@ message Entry {
     google.protobuf.Any payload = 2;
 
     int64 run_time = 3;
+
+    enum EntryState {
+        DORMANT = 0;
+        RUNNING = 1;
+    }
+    EntryState state = 4;
 }
 
 message AddQueueRequest {
