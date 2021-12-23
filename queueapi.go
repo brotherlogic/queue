@@ -118,6 +118,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 			if e.GetKey() == req.GetKey() {
 				if seen {
 					// Silent return
+					queueUDrop.With(prometheus.Labels{"name": queue.GetName() + "-silent"}).Inc()
 					return &pb.AddQueueItemResponse{}, nil
 				} else {
 					seen = true
