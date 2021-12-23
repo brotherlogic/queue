@@ -175,6 +175,12 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 			return err
 		}
 
+		// Remove the entry from the queue - do a reload to stop stomping on changes
+		queue, err = s.loadQueue(ctx, name)
+		if err != nil {
+			return err
+		}
+
 		var entries []*pb.Entry
 		for _, entry := range queue.GetEntries() {
 			if entry.GetKey() != latest.GetKey() || latest.GetRunTime() != entry.GetRunTime() {
