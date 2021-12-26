@@ -41,6 +41,10 @@ var (
 		Name: "queue_errors",
 		Help: "The number of running queues",
 	}, []string{"queue_name"})
+	runtime = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_runtime",
+		Help: "The number of running queues",
+	}, []string{"queue_name"})
 )
 
 func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
@@ -175,7 +179,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 			return err
 		}
 
-		// Remove the entry from the queue - do a reload to stop stomping on changes
+		// Remove the entry from the queue - do a reload to stop stomping on recent additions
 		queue, err = s.loadQueue(ctx, name)
 		if err != nil {
 			return err
@@ -230,6 +234,7 @@ func (s *Server) runQueue(queueName string) error {
 	go func() {
 		for s.running[queueName] {
 			nextRunTime, deadline := s.getNextRunTime(queueName)
+			runtime.With(prometheus.Labels{"queue_name": queueName}).Set(float64(nextRunTime.Unix()))
 
 			s.timeout(queueName, nextRunTime)
 
