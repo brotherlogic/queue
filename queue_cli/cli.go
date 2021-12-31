@@ -40,7 +40,7 @@ func main() {
 		var key = deleteFlags.String("key", "", "Key to delete")
 		if err := deleteFlags.Parse(os.Args[2:]); err == nil {
 			_, err := client.DeleteQueueItem(ctx, &pb.DeleteQueueItemRequest{QueueName: *name, Key: *key})
-			fmt.Printf("Delete: %v\n", err)
+			fmt.Printf("Delete w/ key: %v\n", err)
 		}
 	case "add":
 		addFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
