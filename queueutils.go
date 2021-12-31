@@ -174,7 +174,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		}
 
 		elems := strings.Split(queue.GetEndpoint(), "/")
-		s.Log(fmt.Sprintf("Running %v", latest.GetKey()))
+		s.CtxLog(ctx, fmt.Sprintf("Running %v", latest.GetKey()))
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
 			return err
