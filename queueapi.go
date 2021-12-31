@@ -168,6 +168,7 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 	var latest *pb.Entry
 	for _, q := range queue.GetEntries() {
 		if req.GetKey() != "" {
+			s.Log(fmt.Sprintf("DELET '%v' vs '%v'", q.GetKey(), req.GetKey()))
 			if q.GetKey() == req.GetKey() {
 				latest = q
 			}
