@@ -167,14 +167,20 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 
 	var latest *pb.Entry
 	for _, q := range queue.GetEntries() {
-		if latest == nil || q.GetRunTime() < latest.GetRunTime() {
-			latest = q
+		if req.GetKey() != "" {
+			if q.GetKey() == req.GetKey() {
+				latest = q
+			}
+		} else {
+			if latest == nil || q.GetRunTime() < latest.GetRunTime() {
+				latest = q
+			}
 		}
 	}
 
 	var entries []*pb.Entry
 	for _, q := range queue.GetEntries() {
-		if q.GetKey() != latest.GetKey() || q.GetRunTime() != latest.GetRunTime() {
+		if latest == nil || q.GetKey() != latest.GetKey() || q.GetRunTime() != latest.GetRunTime() {
 			entries = append(entries, q)
 		}
 	}
