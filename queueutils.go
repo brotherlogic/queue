@@ -130,7 +130,7 @@ func (s *Server) getNextRunTime(name string) (time.Time, time.Duration) {
 }
 
 func (s *Server) runQueueElement(name string, deadline time.Duration) error {
-	ctx, cancel := utils.ManualContext("queue-rqe", deadline)
+	ctx, cancel := utils.ManualContext("queue-rqe-"+name, deadline)
 	defer cancel()
 
 	// Acquire a lock to run the queue element
@@ -210,6 +210,7 @@ func (s *Server) timeout(queue string, nrt time.Time) {
 
 	chanLength.With(prometheus.Labels{"queue_name": queue}).Set(float64(len(chn)))
 
+	s.Log(fmt.Sprintf("Sleeping %v for %v", queue, time.Until(nrt)))
 	select {
 	case <-chn:
 		break
@@ -248,6 +249,7 @@ func (s *Server) runQueue(queueName string) error {
 				if s.errorCount[queueName] > 50 && status.Convert(err).Code() == codes.Unknown {
 					s.RaiseIssue(fmt.Sprintf("Error running queue: %v", queueName), fmt.Sprintf("Last error: %v", err))
 				}
+				s.Log(fmt.Sprintf("Sleeping for %v for %v", queueName, time.Minute))
 				time.Sleep(time.Minute)
 			} else {
 				s.errorCount[queueName] = 0
