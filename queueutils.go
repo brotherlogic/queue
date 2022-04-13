@@ -213,8 +213,10 @@ func (s *Server) timeout(queue string, nrt time.Time) {
 	s.DLog(context.Background(), fmt.Sprintf("Sleeping %v for %v", queue, time.Until(nrt)))
 	select {
 	case <-chn:
+		s.DLog(context.Background(), "Read from channel")
 		break
 	case <-time.After(time.Until(nrt)):
+		s.DLog(context.Background(), "Time out")
 		break
 	}
 
