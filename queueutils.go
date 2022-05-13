@@ -263,7 +263,9 @@ func (s *Server) runQueue(queueName string) error {
 				s.errorCount[queueName] = 0
 			}
 			errors.With(prometheus.Labels{"queue_name": queueName}).Set(float64(s.errorCount[queueName]))
+			s.runningLock.Lock()
 		}
+		s.runningLock.Unlock()
 	}()
 
 	return nil
