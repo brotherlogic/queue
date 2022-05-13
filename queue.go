@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"sync"
 	"time"
 
 	"github.com/brotherlogic/goserver"
@@ -41,10 +42,11 @@ const (
 //Server main server type
 type Server struct {
 	*goserver.GoServer
-	cmap       map[string]interface{}
-	running    map[string]bool
-	chanmap    map[string]chan bool
-	errorCount map[string]int
+	cmap        map[string]interface{}
+	running     map[string]bool
+	chanmap     map[string]chan bool
+	errorCount  map[string]int
+	runningLock *sync.Mutex
 }
 
 // Init builds the server
@@ -55,6 +57,7 @@ func Init() *Server {
 		running:    make(map[string]bool),
 		chanmap:    make(map[string]chan bool),
 		errorCount: make(map[string]int),
+		runningLock: &sync.Mutex{}
 	}
 
 	s.buildClients()

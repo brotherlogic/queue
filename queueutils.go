@@ -224,19 +224,25 @@ func (s *Server) timeout(queue string, nrt time.Time) {
 
 func (s *Server) runQueue(queueName string) error {
 	s.Log(fmt.Sprintf("Running queue: %v", queueName))
+
+	s.runningLock.Lock()
 	for running := range s.running {
 		if queueName == running {
+			s.runningLock.Unlock()
 			return fmt.Errorf("this queue is already running")
 		}
 	}
 
 	s.running[queueName] = true
+	s.runningLock.Unlock()
 	s.chanmap[queueName] = make(chan bool, 100)
 
 	numQueues.Set(float64(len(s.running)))
 
 	go func() {
+		s.runningLock.Lock()
 		for s.running[queueName] {
+			s.runningLock.Unlock()
 			nextRunTime, deadline := s.getNextRunTime(queueName)
 			runtime.With(prometheus.Labels{"queue_name": queueName}).Set(float64(nextRunTime.Unix()))
 
