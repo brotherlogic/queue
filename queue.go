@@ -52,12 +52,12 @@ type Server struct {
 // Init builds the server
 func Init() *Server {
 	s := &Server{
-		GoServer:   &goserver.GoServer{},
-		cmap:       make(map[string]interface{}),
-		running:    make(map[string]bool),
-		chanmap:    make(map[string]chan bool),
-		errorCount: make(map[string]int),
-		runningLock: &sync.Mutex{}
+		GoServer:    &goserver.GoServer{},
+		cmap:        make(map[string]interface{}),
+		running:     make(map[string]bool),
+		chanmap:     make(map[string]chan bool),
+		errorCount:  make(map[string]int),
+		runningLock: &sync.Mutex{},
 	}
 
 	s.buildClients()
