@@ -156,6 +156,11 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		}
 	}
 
+	if latest == nil {
+		s.RaiseIssue("No Entries in Queue", fmt.Sprintf("Queue %v has no entries to run", name))
+		return nil
+	}
+
 	latest.State = pb.Entry_RUNNING
 	err = s.saveQueue(ctx, queue)
 	if err != nil {
