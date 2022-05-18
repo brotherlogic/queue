@@ -65,7 +65,7 @@ func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
 		return err
 	}
 
-	s.CtxLog(ctx, fmt.Sprintf("Written %v:%v", res.GetHash(), res.GetTimestamp()))
+	s.CtxLog(ctx, fmt.Sprintf("Written %v:%v [%v]", res.GetHash(), res.GetTimestamp(), len(queue.GetEntries())))
 
 	if res.GetConsensus() < 0.5 {
 		return fmt.Errorf("could not get write for queue %v consensus (%v)", queue.GetName(), res.GetConsensus())
