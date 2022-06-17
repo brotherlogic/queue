@@ -138,7 +138,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	defer cancel()
 
 	// Acquire a lock to run the queue element
-	unlockKey, err := s.RunLockingElection(ctx, "queuelock-"+name)
+	unlockKey, err := s.RunLockingElection(ctx, "queuelock-"+name, "Locking for a queue run")
 	if err != nil {
 		time.Sleep(time.Minute)
 		return err
