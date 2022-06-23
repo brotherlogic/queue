@@ -55,7 +55,7 @@ func Init() *Server {
 		GoServer:    &goserver.GoServer{},
 		cmap:        make(map[string]interface{}),
 		running:     make(map[string]bool),
-		chanmap:     make(map[string]chan bool),
+		chanmap:     make(map[string]chan bool, 5000),
 		errorCount:  make(map[string]int),
 		runningLock: &sync.Mutex{},
 	}
