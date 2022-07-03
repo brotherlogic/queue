@@ -67,7 +67,7 @@ func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
 
 	s.CtxLog(ctx, fmt.Sprintf("Written %v:%v [%v]", res.GetHash(), res.GetTimestamp(), len(queue.GetEntries())))
 
-	if res.GetConsensus() < 0.5 {
+	if res.GetConsensus() < 0.75 {
 		return fmt.Errorf("could not get write for queue %v consensus (%v)", queue.GetName(), res.GetConsensus())
 	}
 
@@ -89,7 +89,7 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 		return nil, err
 	}
 
-	if res.GetConsensus() < 0.5 {
+	if res.GetConsensus() < 0.75 {
 		return nil, fmt.Errorf("could not find read consensus for queue %v (%v)", name, res.GetConsensus())
 	}
 
