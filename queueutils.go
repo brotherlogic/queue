@@ -65,7 +65,7 @@ func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
 		return err
 	}
 
-	s.CtxLog(ctx, fmt.Sprintf("Written %v:%v [%v]", res.GetHash(), res.GetTimestamp(), len(queue.GetEntries())))
+	s.CtxLog(ctx, fmt.Sprintf("Written %v:%v [%v] with %v", res.GetHash(), res.GetTimestamp(), len(queue.GetEntries()), res.GetConsensus()))
 
 	if res.GetConsensus() < 0.75 {
 		return fmt.Errorf("could not get write for queue %v consensus (%v)", queue.GetName(), res.GetConsensus())
@@ -93,7 +93,7 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 		return nil, fmt.Errorf("could not find read consensus for queue %v (%v)", name, res.GetConsensus())
 	}
 
-	s.CtxLog(ctx, fmt.Sprintf("Read %v:%v", res.GetHash(), res.GetTimestamp()))
+	s.CtxLog(ctx, fmt.Sprintf("Read %v:%v with %v", res.GetHash(), res.GetTimestamp(), res.GetConsensus()))
 
 	queue := &pb.Queue{}
 	err = proto.Unmarshal(res.GetValue().GetValue(), queue)
