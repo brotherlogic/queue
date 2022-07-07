@@ -150,7 +150,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		return nil, err
 	}
 
-	s.DLog(ctx, fmt.Sprintf("Updating the channel map for %v", req.GetQueueName()))
+	s.DLog(ctx, fmt.Sprintf("Updating the channel map for %v -> %v", req.GetQueueName(), len(s.chanmap[req.GetQueueName()])))
 	defer s.DLog(ctx, fmt.Sprintf("Tripped the chan map for %v", req.GetQueueName()))
 	// Trip another pass at the queue
 	if ch, ok := s.chanmap[req.GetQueueName()]; ok {

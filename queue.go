@@ -143,10 +143,10 @@ func (s *Server) runQueues(ctx context.Context) error {
 
 func main() {
 	server := Init()
-	server.PrepServer()
+	server.PrepServer("queue")
 	server.Register = server
 
-	err := server.RegisterServerV2("queue", false, true)
+	err := server.RegisterServerV2(false)
 	if err != nil {
 		return
 	}
