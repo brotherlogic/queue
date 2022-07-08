@@ -223,6 +223,7 @@ func (s *Server) timeout(queue string, nrt time.Time) {
 	select {
 	case <-chn:
 		s.DLog(context.Background(), "Read from channel")
+
 		break
 	case <-time.After(time.Until(nrt)):
 		s.DLog(context.Background(), "Time out")

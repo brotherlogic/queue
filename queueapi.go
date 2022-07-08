@@ -154,7 +154,10 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 	defer s.DLog(ctx, fmt.Sprintf("Tripped the chan map for %v", req.GetQueueName()))
 	// Trip another pass at the queue
 	if ch, ok := s.chanmap[req.GetQueueName()]; ok {
-		ch <- true
+		// We don't need to trip the chanmap here - we already have a backlog
+		if len(s.chanmap[req.GetQueueName()]) < 5 {
+			ch <- true
+		}
 	} else {
 		s.Log(fmt.Sprintf("cannot find channel for %v", req.GetQueueName()))
 	}
