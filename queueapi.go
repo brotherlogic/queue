@@ -100,7 +100,11 @@ var (
 )
 
 func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) (*pb.AddQueueItemResponse, error) {
-	queue, err := s.loadQueue(ctx, req.GetQueueName())
+	cons := req.GetCons()
+	if cons == 0 {
+		cons = 0.75
+	}
+	queue, err := s.loadQueue(ctx, req.GetQueueName(), cons)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +170,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 }
 
 func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemRequest) (*pb.DeleteQueueItemResponse, error) {
-	queue, err := s.loadQueue(ctx, req.GetQueueName())
+	queue, err := s.loadQueue(ctx, req.GetQueueName(), 0.75)
 	if err != nil {
 		return nil, err
 	}

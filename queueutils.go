@@ -76,7 +76,7 @@ func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
 	return nil
 }
 
-func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) {
+func (s *Server) loadQueue(ctx context.Context, name string, cons float32) (*pb.Queue, error) {
 	conn, err := s.FDialServer(ctx, "dstore")
 	if err != nil {
 		return nil, err
@@ -89,7 +89,7 @@ func (s *Server) loadQueue(ctx context.Context, name string) (*pb.Queue, error) 
 		return nil, err
 	}
 
-	if res.GetConsensus() < 0.75 {
+	if res.GetConsensus() < cons {
 		return nil, fmt.Errorf("could not find read consensus for queue %v (%v)", name, res.GetConsensus())
 	}
 
@@ -115,7 +115,7 @@ func (s *Server) getNextRunTime(name string) (time.Time, time.Duration) {
 	ctx, cancel := utils.ManualContext("queue-"+name, time.Minute)
 	defer cancel()
 
-	queue, err := s.loadQueue(ctx, name)
+	queue, err := s.loadQueue(ctx, name, 0.75)
 	if err != nil {
 		return time.Now().Add(time.Minute), time.Minute
 	}
@@ -147,7 +147,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		lerr := s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
 		releases.With(prometheus.Labels{"queue": name, "error": fmt.Sprintf("%v", lerr)}).Inc()
 	}()
-	queue, err := s.loadQueue(ctx, name)
+	queue, err := s.loadQueue(ctx, name, 0.75)
 	if err != nil {
 		return err
 	}
@@ -190,7 +190,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		}
 
 		// Remove the entry from the queue - do a reload to stop stomping on recent additions
-		queue, err = s.loadQueue(ctx, name)
+		queue, err = s.loadQueue(ctx, name, 0.75)
 		if err != nil {
 			return err
 		}
