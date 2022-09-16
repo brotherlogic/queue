@@ -163,7 +163,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 			ch <- true
 		}
 	} else {
-		s.Log(fmt.Sprintf("cannot find channel for %v", req.GetQueueName()))
+		s.CtxLog(ctx, fmt.Sprintf("cannot find channel for %v", req.GetQueueName()))
 	}
 
 	return &pb.AddQueueItemResponse{}, nil
@@ -178,7 +178,7 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 	var latest *pb.Entry
 	for _, q := range queue.GetEntries() {
 		if req.GetKey() != "" {
-			s.Log(fmt.Sprintf("DELET '%v' vs '%v'", q.GetKey(), req.GetKey()))
+			s.CtxLog(ctx, fmt.Sprintf("DELET '%v' vs '%v'", q.GetKey(), req.GetKey()))
 			if q.GetKey() == req.GetKey() {
 				latest = q
 			}
@@ -189,7 +189,7 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 		}
 	}
 
-	s.Log(fmt.Sprintf("DELETING %v with %v", latest, req.GetKey()))
+	s.CtxLog(ctx, fmt.Sprintf("DELETING %v with %v", latest, req.GetKey()))
 	var entries []*pb.Entry
 	for _, q := range queue.GetEntries() {
 		if latest == nil || q.GetKey() != latest.GetKey() || q.GetRunTime() != latest.GetRunTime() {

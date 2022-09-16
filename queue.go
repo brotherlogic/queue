@@ -136,7 +136,7 @@ func (s *Server) runQueues(ctx context.Context) error {
 		s.runQueue(queue)
 	}
 
-	s.Log(fmt.Sprintf("Ran %v queues", len(config.GetQueues())))
+	s.CtxLog(ctx, fmt.Sprintf("Ran %v queues", len(config.GetQueues())))
 
 	return nil
 }

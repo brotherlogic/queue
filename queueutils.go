@@ -233,7 +233,9 @@ func (s *Server) timeout(queue string, nrt time.Time) {
 }
 
 func (s *Server) runQueue(queueName string) error {
-	s.Log(fmt.Sprintf("Running queue: %v", queueName))
+	ctx, cancel := utils.ManualContext("queue-run", time.Minute)
+	s.CtxLog(ctx, fmt.Sprintf("Running queue: %v", queueName))
+	cancel()
 
 	s.runningLock.Lock()
 	for running := range s.running {
@@ -252,6 +254,7 @@ func (s *Server) runQueue(queueName string) error {
 	go func() {
 		s.runningLock.Lock()
 		for s.running[queueName] {
+			ctx, cancel := utils.ManualContext("queue-run-"+queueName, time.Minute)
 			s.runningLock.Unlock()
 			nextRunTime, deadline := s.getNextRunTime(queueName)
 			runtime.With(prometheus.Labels{"queue_name": queueName}).Set(float64(nextRunTime.Unix()))
@@ -260,7 +263,7 @@ func (s *Server) runQueue(queueName string) error {
 
 			err := s.runQueueElement(queueName, deadline)
 			if status.Convert(err).Code() != codes.AlreadyExists {
-				s.Log(fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
+				s.CtxLog(ctx, fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
 			}
 			if err != nil {
 				s.errorCount[queueName]++
@@ -274,6 +277,7 @@ func (s *Server) runQueue(queueName string) error {
 			}
 			errors.With(prometheus.Labels{"queue_name": queueName}).Set(float64(s.errorCount[queueName]))
 			s.runningLock.Lock()
+			cancel()
 		}
 		s.runningLock.Unlock()
 	}()
