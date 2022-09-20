@@ -214,7 +214,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	return nil
 }
 
-func (s *Server) timeout(queue string, nrt time.Time) {
+func (s *Server) timeout(ctx context.Context, queue string, nrt time.Time) {
 	chn := s.chanmap[queue]
 
 	chanLength.With(prometheus.Labels{"queue_name": queue}).Set(float64(len(chn)))
@@ -222,11 +222,11 @@ func (s *Server) timeout(queue string, nrt time.Time) {
 	s.DLog(context.Background(), fmt.Sprintf("Sleeping %v for %v", queue, time.Until(nrt)))
 	select {
 	case <-chn:
-		s.DLog(context.Background(), "Read from channel")
+		s.DLog(ctx, "Read from channel")
 
 		break
 	case <-time.After(time.Until(nrt)):
-		s.DLog(context.Background(), "Time out")
+		s.DLog(ctx, "Time out")
 		break
 	}
 
@@ -259,7 +259,7 @@ func (s *Server) runQueue(queueName string) error {
 			nextRunTime, deadline := s.getNextRunTime(queueName)
 			runtime.With(prometheus.Labels{"queue_name": queueName}).Set(float64(nextRunTime.Unix()))
 
-			s.timeout(queueName, nextRunTime)
+			s.timeout(ctx, queueName, nextRunTime)
 
 			err := s.runQueueElement(queueName, deadline)
 			if status.Convert(err).Code() != codes.AlreadyExists {
@@ -270,7 +270,7 @@ func (s *Server) runQueue(queueName string) error {
 				if s.errorCount[queueName] > 50 && status.Convert(err).Code() == codes.Unknown {
 					s.RaiseIssue(fmt.Sprintf("Error running queue: %v", queueName), fmt.Sprintf("Last error: %v", err))
 				}
-				s.DLog(context.Background(), fmt.Sprintf("Sleeping for %v for %v", queueName, time.Minute))
+				s.DLog(ctx, fmt.Sprintf("Sleeping for %v for %v", queueName, time.Minute))
 				time.Sleep(time.Minute)
 			} else {
 				s.errorCount[queueName] = 0
