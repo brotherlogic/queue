@@ -219,7 +219,7 @@ func (s *Server) timeout(ctx context.Context, queue string, nrt time.Time) {
 
 	chanLength.With(prometheus.Labels{"queue_name": queue}).Set(float64(len(chn)))
 
-	s.DLog(context.Background(), fmt.Sprintf("Sleeping %v for %v", queue, time.Until(nrt)))
+	s.DLog(ctx, fmt.Sprintf("Sleeping %v for %v", queue, time.Until(nrt)))
 	select {
 	case <-chn:
 		s.DLog(ctx, "Read from channel")
