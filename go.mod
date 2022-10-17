@@ -3,20 +3,18 @@ module github.com/brotherlogic/queue
 go 1.16
 
 require (
-	github.com/brotherlogic/backup v0.0.0-20220915142451-44f722652a2c
+	github.com/brotherlogic/backup v0.0.0-20221015143614-02187f70a08b
+	github.com/brotherlogic/discovery v0.0.0-20221017170645-5faeb7493c8b // indirect
 	github.com/brotherlogic/dstore v0.0.0-20220920131721-8bffcde17e97
-	github.com/brotherlogic/godiscogs v0.0.0-20221008131707-6944ba63cf54 // indirect
-	github.com/brotherlogic/goserver v0.0.0-20220930143508-9c9ff6258bec
-	github.com/brotherlogic/recordadder v0.0.0-20220916142655-732fbee0e097
+	github.com/brotherlogic/goserver v0.0.0-20221017174255-733572468b6b
+	github.com/brotherlogic/recordadder v0.0.0-20221016143231-a67cbe6a9514
 	github.com/brotherlogic/recordfanout v0.0.0-20220928181503-4371fe2f3bf4
-	github.com/brotherlogic/recordsales v0.0.0-20220912230023-eba82ab3a5ed
-	github.com/brotherlogic/recordwants v0.0.0-20220916154813-3d9eeb33e2cc
-	github.com/brotherlogic/temp v0.0.0-20220912143857-8954365caa2d
+	github.com/brotherlogic/recordsales v0.0.0-20221013032125-a7e473bf4038
+	github.com/brotherlogic/recordwants v0.0.0-20221016161800-0c42ad5dcd02
+	github.com/brotherlogic/temp v0.0.0-20221010180731-33146347b955
 	github.com/golang/protobuf v1.5.2
 	github.com/prometheus/client_golang v1.13.0
-	golang.org/x/net v0.0.0-20221004154528-8021a29435af
-	golang.org/x/sys v0.0.0-20221006211917-84dc82d7e875 // indirect
-	google.golang.org/genproto v0.0.0-20220930163606-c98284e70a91 // indirect
-	google.golang.org/grpc v1.50.0
+	golang.org/x/net v0.0.0-20221017152216-f25eb7ecb193
+	google.golang.org/grpc v1.50.1
 	google.golang.org/protobuf v1.28.1
 )
