@@ -133,7 +133,7 @@ func (s *Server) getNextRunTime(name string) (time.Time, time.Duration) {
 	return time.Unix(next, 0), time.Second * time.Duration(queue.GetDeadline())
 }
 
-func (s *Server) runQueueElement(name string, deadline time.Duration) error {
+func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry, error) {
 	ctx, cancel := utils.ManualContext("queue-rqe-"+name, deadline)
 	defer cancel()
 
@@ -141,7 +141,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	unlockKey, err := s.RunLockingElection(ctx, "queuelock-"+name, "Locking for a queue run")
 	if err != nil {
 		time.Sleep(time.Minute)
-		return err
+		return nil, err
 	}
 	defer func() {
 		lerr := s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
@@ -149,7 +149,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 	}()
 	queue, err := s.loadQueue(ctx, name, 0.75)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// Get the latest entry
@@ -162,37 +162,37 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 
 	if latest == nil {
 		s.RaiseIssue("No Entries in Queue", fmt.Sprintf("Queue %v has no entries to run", name))
-		return nil
+		return nil, nil
 	}
 
 	latest.State = pb.Entry_RUNNING
 	err = s.saveQueue(ctx, queue)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if time.Since(time.Unix(latest.GetRunTime(), 0)) > 0 {
 		t, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(queue.GetType()))
 		if err != nil {
-			return fmt.Errorf("error finding proto (%v) -> %v", queue.GetType(), err)
+			return nil, fmt.Errorf("error finding proto (%v) -> %v", queue.GetType(), err)
 		}
 		pt := t.New().Interface()
 		err = proto.Unmarshal(latest.GetPayload().GetValue(), pt)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		elems := strings.Split(queue.GetEndpoint(), "/")
 		s.DLog(ctx, fmt.Sprintf("Running %v on queue %v", latest.GetKey(), name))
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		// Remove the entry from the queue - do a reload to stop stomping on recent additions
 		queue, err = s.loadQueue(ctx, name, 0.75)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		var entries []*pb.Entry
@@ -205,13 +205,13 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) error {
 		queue.Entries = entries
 		err = s.saveQueue(ctx, queue)
 		if err != nil {
-			return err
+			return nil, err
 		}
 	} else {
-		return status.Errorf(codes.InvalidArgument, "nothing to run here (%v) until %v", latest.GetKey(), time.Unix(latest.GetRunTime(), 0))
+		return nil, status.Errorf(codes.InvalidArgument, "nothing to run here (%v) until %v", latest.GetKey(), time.Unix(latest.GetRunTime(), 0))
 	}
 
-	return nil
+	return latest, nil
 }
 
 func (s *Server) timeout(ctx context.Context, queue string, nrt time.Time) {
@@ -261,9 +261,9 @@ func (s *Server) runQueue(queueName string) error {
 
 			s.timeout(ctx, queueName, nextRunTime)
 
-			err := s.runQueueElement(queueName, deadline)
+			elem, err := s.runQueueElement(queueName, deadline)
 			if status.Convert(err).Code() != codes.AlreadyExists {
-				s.CtxLog(ctx, fmt.Sprintf("Ran queue (%v) -> %v", queueName, err))
+				s.CtxLog(ctx, fmt.Sprintf("Ran queue (%v) -> %v from %v", queueName, err, elem))
 			}
 			if err != nil {
 				s.errorCount[queueName]++
