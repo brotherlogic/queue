@@ -13,6 +13,9 @@ type QueueClient struct {
 }
 
 func (c *QueueClient) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) (*pb.AddQueueItemResponse, error) {
+	if c.Test {
+		return &pb.AddQueueItemResponse{}, nil
+	}
 	conn, err := c.Gs.FDialServer(ctx, "queue")
 	if err != nil {
 		return nil, err
