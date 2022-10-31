@@ -159,7 +159,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 		if latest == nil || entry.GetRunTime() < latest.GetRunTime() {
 			latest = entry
 		}
-		if entry.GetKey() != "328968570" {
+		if entry.GetKey() != "328968570" && entry.GetKey() != "997296140" {
 			nentries = append(nentries, entry)
 		}
 	}
