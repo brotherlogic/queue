@@ -154,16 +154,11 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 
 	// Get the latest entry
 	var latest *pb.Entry
-	var nentries []*pb.Entry
 	for _, entry := range queue.GetEntries() {
 		if latest == nil || entry.GetRunTime() < latest.GetRunTime() {
 			latest = entry
 		}
-		if entry.GetKey() != "328968570" && entry.GetKey() != "997296140" {
-			nentries = append(nentries, entry)
-		}
 	}
-	queue.Entries = nentries
 
 	if latest == nil {
 		s.RaiseIssue("No Entries in Queue", fmt.Sprintf("Queue %v has no entries to run", name))
