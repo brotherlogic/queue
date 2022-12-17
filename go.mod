@@ -4,8 +4,8 @@ go 1.16
 
 require (
 	github.com/brotherlogic/backup v0.0.0-20221217181340-5ee62935e599
-	github.com/brotherlogic/datastore v0.0.0-20221217221026-79fb4ef98139 // indirect
-	github.com/brotherlogic/dstore v0.0.0-20221217221008-d848823bd824
+	github.com/brotherlogic/buildserver v0.0.0-20221217231052-6c30c9a7b7d3 // indirect
+	github.com/brotherlogic/dstore v0.0.0-20221217222530-1dfb318f9e95
 	github.com/brotherlogic/goserver v0.0.0-20221217002224-0ba5c0213be1
 	github.com/brotherlogic/recordadder v0.0.0-20221211033019-55e8c6d5150b
 	github.com/brotherlogic/recordfanout v0.0.0-20221211032507-508faf910ca5
