@@ -26,6 +26,10 @@ var (
 		Name: "queue_queuelength",
 		Help: "The number of running queues",
 	}, []string{"queue_name"})
+	queueDue = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_due",
+		Help: "The number of running queues",
+	}, []string{"queue_name"})
 
 	releases = promauto.NewGaugeVec(prometheus.GaugeOpts{
 		Name: "queue_releases",
@@ -102,6 +106,13 @@ func (s *Server) loadQueue(ctx context.Context, name string, cons float32) (*pb.
 	}
 
 	queueLength.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(float64(len(queue.GetEntries())))
+	count := float64(0)
+	for _, entry := range queue.GetEntries() {
+		if time.Unix(entry.GetRunTime(), 0).Before(time.Now()) {
+			count++
+		}
+	}
+	queueDue.With(prometheus.Labels{"queue_name": queue.GetName()}).Set(count)
 
 	/*if queue.GetName() == "sale_update" {
 		s.RaiseIssue("Correcting", "Correcting sale update")
