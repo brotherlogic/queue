@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/brotherlogic/goserver/utils"
-	"google.golang.org/grpc/resolver"
 	"google.golang.org/protobuf/proto"
 
 	dspb "github.com/brotherlogic/dstore/proto"
@@ -16,10 +15,6 @@ import (
 	rwpb "github.com/brotherlogic/recordwants/proto"
 	google_protobuf "github.com/golang/protobuf/ptypes/any"
 )
-
-func init() {
-	resolver.Register(&utils.DiscoveryClientResolverBuilder{})
-}
 
 func main() {
 	ctx, cancel := utils.ManualContext("dstore-cli", time.Minute)
