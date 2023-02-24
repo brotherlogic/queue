@@ -74,8 +74,17 @@ message DeleteQueueItemRequest {
 
 message DeleteQueueItemResponse {}
 
+message CleanQueueRequest{
+    string queue_name = 1;
+}
+
+message CleanQueueResponse {
+    int32 cleared = 1;
+}
+
 service QueueService {
     rpc AddQueue(AddQueueRequest) returns (AddQueueResponse) {};
     rpc AddQueueItem(AddQueueItemRequest) returns (AddQueueItemResponse) {};
+    rpc CleanQueue(CleanQueueRequest) returns (CleanQueueResponse) {};
     rpc DeleteQueueItem(DeleteQueueItemRequest) returns (DeleteQueueItemResponse) {};
 }

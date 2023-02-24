@@ -99,6 +99,37 @@ var (
 	}, []string{"name"})
 )
 
+func (s *Server) CleanQueue(ctx context.Context, req *pb.CleanQueueRequest) (*pb.CleanQueueResponse, error) {
+	queue, err := s.loadQueue(ctx, req.GetQueueName(), 0.75)
+	if err != nil {
+		return nil, err
+	}
+
+	s.runningLock.Lock()
+	defer s.runningLock.Unlock()
+
+	before := len(queue.GetEntries())
+
+	keymap := make(map[string]*pb.Entry)
+	for _, entry := range queue.GetEntries() {
+		if val, ok := keymap[entry.GetKey()]; ok {
+			if entry.GetRunTime() < val.GetRunTime() {
+				keymap[entry.GetKey()] = entry
+			}
+		} else {
+			keymap[entry.GetKey()] = entry
+		}
+	}
+
+	var nqueue []*pb.Entry
+	for _, val := range keymap {
+		nqueue = append(nqueue, val)
+	}
+	queue.Entries = nqueue
+
+	return &pb.CleanQueueResponse{Cleared: int32(before - len(nqueue))}, s.saveQueue(ctx, queue)
+}
+
 func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) (*pb.AddQueueItemResponse, error) {
 	cons := req.GetCons()
 	if cons == 0 {
