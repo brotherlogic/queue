@@ -29,6 +29,13 @@ func main() {
 	client := pb.NewQueueServiceClient(conn)
 
 	switch os.Args[1] {
+	case "clean":
+		cleanFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
+		var name = cleanFlags.String("name", "", "Name of the queue")
+		if err := cleanFlags.Parse(os.Args[2:]); err == nil {
+			val, err := client.CleanQueue(ctx, &pb.CleanQueueRequest{QueueName: *name})
+			fmt.Printf("Clean w/ key: %v -> %v\n", val.Cleared, err)
+		}
 	case "delete":
 		deleteFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
 		var name = deleteFlags.String("name", "", "Name of the queue")
