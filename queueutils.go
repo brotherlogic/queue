@@ -274,7 +274,7 @@ func (s *Server) runQueue(queueName string) error {
 
 			elem, err := s.runQueueElement(queueName, deadline)
 			if status.Convert(err).Code() != codes.AlreadyExists {
-				s.CtxLog(ctx, fmt.Sprintf("Ran queue (%v) -> %v from %v", queueName, err, elem.GetKey()))
+				s.CtxLog(ctx, fmt.Sprintf("Ran queue (%v) -> %v from %v [%v]", queueName, err, elem.GetKey(), time.Since(time.Unix(elem.GetRunTime(), 0))))
 			}
 			if err != nil {
 				s.errorCount[queueName]++
