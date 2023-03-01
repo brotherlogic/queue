@@ -192,16 +192,17 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		conn, err := s.FDialServer(ctx, "recordupdater")
 		if err != nil {
 			s.CtxLog(ctx, fmt.Sprintf("RU Dial fail: %v", err))
+		} else {
+			defer conn.Close()
+			client := pbru.NewRecordUpdateServiceClient(conn)
+			val, _ := strconv.ParseInt(req.GetKey(), 10, 32)
+			res, err := client.Update(ctx, &pbru.UpdateRequest{
+				InstanceId: int32(val),
+				UpdateTime: req.GetRunTime(),
+				Purpose:    "Teed from queue",
+			})
+			s.CtxLog(ctx, fmt.Sprintf("RU ran update: %v and %v", res, err))
 		}
-		defer conn.Close()
-		client := pbru.NewRecordUpdateServiceClient(conn)
-		val, _ := strconv.ParseInt(req.GetKey(), 10, 32)
-		res, err := client.Update(ctx, &pbru.UpdateRequest{
-			InstanceId: int32(val),
-			UpdateTime: req.GetRunTime(),
-			Purpose:    "Teed from queue",
-		})
-		s.CtxLog(ctx, fmt.Sprintf("RU ran update: %v and %v", res, err))
 	}
 
 	s.DLog(ctx, fmt.Sprintf("Updating the channel map for %v -> %v", req.GetQueueName(), len(s.chanmap[req.GetQueueName()])))
