@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
@@ -10,6 +11,8 @@ import (
 
 	dspb "github.com/brotherlogic/dstore/proto"
 	pb "github.com/brotherlogic/queue/proto"
+	pbru "github.com/brotherlogic/recordupdater/proto"
+
 	google_protobuf "github.com/golang/protobuf/ptypes/any"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -183,6 +186,21 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 	err = s.saveQueue(ctx, queue)
 	if err != nil {
 		return nil, err
+	}
+
+	if req.GetQueueName() == "record_fanout" {
+		conn, err := s.FDialServer(ctx, "recordupdater")
+		if err != nil {
+			s.CtxLog(ctx, fmt.Sprintf("RU Dial fail: %v", err))
+		}
+		client := pbru.NewRecordUpdateServiceClient(conn)
+		val, _ := strconv.ParseInt(req.GetKey(), 10, 32)
+		res, err := client.Update(ctx, &pbru.UpdateRequest{
+			InstanceId: int32(val),
+			UpdateTime: req.GetRunTime(),
+			Purpose:    "Teed from queue",
+		})
+		s.CtxLog(ctx, fmt.Sprintf("RU ran update: %v and %v", res, err))
 	}
 
 	s.DLog(ctx, fmt.Sprintf("Updating the channel map for %v -> %v", req.GetQueueName(), len(s.chanmap[req.GetQueueName()])))
