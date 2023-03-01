@@ -193,6 +193,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		if err != nil {
 			s.CtxLog(ctx, fmt.Sprintf("RU Dial fail: %v", err))
 		}
+		defer conn.Close()
 		client := pbru.NewRecordUpdateServiceClient(conn)
 		val, _ := strconv.ParseInt(req.GetKey(), 10, 32)
 		res, err := client.Update(ctx, &pbru.UpdateRequest{
