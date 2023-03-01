@@ -191,7 +191,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 	if req.GetQueueName() == "record_fanout" {
 		conn, err := s.FDialServer(ctx, "recordupdater")
 		if err != nil {
-			s.CtxLog(ctx, fmt.Sprintf("RU Dial: %v", err))
+			s.CtxLog(ctx, fmt.Sprintf("RU Dial fail: %v", err))
 		}
 		client := pbru.NewRecordUpdateServiceClient(conn)
 		val, _ := strconv.ParseInt(req.GetKey(), 10, 32)
