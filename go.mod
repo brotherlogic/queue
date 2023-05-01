@@ -29,7 +29,7 @@ require (
 	github.com/brotherlogic/godiscogs v0.0.0-20230401025107-56c4acd43937 // indirect
 	github.com/brotherlogic/keystore v0.0.0-20230501001350-d88dcd78f5f5 // indirect
 	github.com/brotherlogic/lock v0.0.0-20230501002455-b2f80048954e // indirect
-	github.com/brotherlogic/logging v0.0.0-20230501002559-7c15c7980a2d // indirect
+	github.com/brotherlogic/logging v0.0.0-20230501003437-d04a3d51814f // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
