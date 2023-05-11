@@ -188,7 +188,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		return nil, err
 	}
 
-	if req.GetQueueName() == "record_fanout" {
+	if req.GetQueueName() == "record_fanoutss" {
 		conn, err := s.FDialServer(ctx, "recordupdater")
 		if err != nil {
 			s.CtxLog(ctx, fmt.Sprintf("RU Dial fail (skipping): %v", err))
