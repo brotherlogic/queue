@@ -281,7 +281,7 @@ func (s *Server) runQueue(queueName string) error {
 				if s.errorCount[queueName] > 50 && status.Convert(err).Code() == codes.Unknown {
 					s.RaiseIssue(fmt.Sprintf("Error running queue: %v", queueName), fmt.Sprintf("Last error: %v", err))
 				}
-				s.DLog(ctx, fmt.Sprintf("Sleeping for %v for %v", queueName, time.Minute))
+				s.DLog(ctx, fmt.Sprintf("Sleeping for %v for %v", queueName, time.Minute*2))
 				time.Sleep(time.Minute)
 			} else {
 				s.errorCount[queueName] = 0
