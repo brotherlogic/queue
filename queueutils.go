@@ -197,7 +197,18 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 		s.DLog(ctx, fmt.Sprintf("Running %v on queue %v", latest.GetKey(), name))
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
-			return nil, err
+			queue, err = s.loadQueue(ctx, name, 0.75)
+			if err != nil {
+				return nil, err
+			}
+
+			for _, q := range queue.GetEntries() {
+				if q.GetKey() == latest.GetKey() && q.GetRunTime() == latest.GetRunTime() {
+					q.RunTime = q.RunTime + 60
+					return q, s.saveQueue(ctx, queue)
+				}
+			}
+			return latest, nil
 		}
 
 		// Remove the entry from the queue - do a reload to stop stomping on recent additions
