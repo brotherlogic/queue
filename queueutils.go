@@ -197,15 +197,19 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 		s.DLog(ctx, fmt.Sprintf("Running %v on queue %v", latest.GetKey(), name))
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
-			queue, err = s.loadQueue(ctx, name, 0.75)
-			if err != nil {
-				return nil, err
+			queue, lerr := s.loadQueue(ctx, name, 0.75)
+			if lerr != nil {
+				return nil, lerr
 			}
 
 			for _, q := range queue.GetEntries() {
 				if q.GetKey() == latest.GetKey() && q.GetRunTime() == latest.GetRunTime() {
 					q.RunTime = q.RunTime + 60
-					return q, s.saveQueue(ctx, queue)
+					serr := s.saveQueue(ctx, queue)
+					if serr != nil {
+						return q, serr
+					}
+					return q, err
 				}
 			}
 			return latest, nil
