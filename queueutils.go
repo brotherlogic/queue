@@ -207,6 +207,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 				if q.GetKey() == latest.GetKey() && q.GetRunTime() == latest.GetRunTime() {
 					q.RunTime = q.RunTime + 60
 					serr := s.saveQueue(ctx, queue)
+					s.CtxLog(ctx, fmt.Sprintf("Saved with adjust time %v -> %v", q, serr))
 					if serr != nil {
 						return q, serr
 					}
