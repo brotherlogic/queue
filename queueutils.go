@@ -197,6 +197,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 		s.DLog(ctx, fmt.Sprintf("Running %v on queue %v", latest.GetKey(), name))
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
+			s.CtxLog(ctx, fmt.Sprintf("Failed %v so adjusting time", err))
 			queue, lerr := s.loadQueue(ctx, name, 0.75)
 			if lerr != nil {
 				return nil, lerr
@@ -206,6 +207,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 				if q.GetKey() == latest.GetKey() && q.GetRunTime() == latest.GetRunTime() {
 					q.RunTime = q.RunTime + 60
 					serr := s.saveQueue(ctx, queue)
+					s.CtxLog(ctx, fmt.Sprintf("Saved with adjust time %v -> %v", q, serr))
 					if serr != nil {
 						return q, serr
 					}
