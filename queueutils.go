@@ -297,7 +297,9 @@ func (s *Server) runQueue(queueName string) error {
 					s.RaiseIssue(fmt.Sprintf("Error running queue: %v", queueName), fmt.Sprintf("Last error: %v", err))
 				}
 				s.DLog(ctx, fmt.Sprintf("Sleeping for %v for %v", queueName, time.Minute*2))
-				time.Sleep(time.Minute)
+				if status.Code(err) != codes.FailedPrecondition {
+					time.Sleep(time.Minute)
+				}
 			} else {
 				s.errorCount[queueName] = 0
 			}
