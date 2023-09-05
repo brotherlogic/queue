@@ -298,8 +298,9 @@ func (s *Server) runQueue(queueName string) error {
 				if s.errorCount[queueName] > 50 && status.Convert(err).Code() == codes.Unknown {
 					s.RaiseIssue(fmt.Sprintf("Error running queue: %v", queueName), fmt.Sprintf("Last error: %v", err))
 				}
-				s.DLog(ctx, fmt.Sprintf("Sleeping for %v for %v (%v)", queueName, time.Minute*2, err))
 				if status.Code(err) != codes.FailedPrecondition {
+					s.DLog(ctx, fmt.Sprintf("Sleeping for %v for %v (%v)", queueName, time.Minute*2, err))
+
 					time.Sleep(time.Minute)
 				}
 			} else {
