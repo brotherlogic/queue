@@ -301,7 +301,7 @@ func (s *Server) runQueue(queueName string) error {
 				if status.Code(err) != codes.FailedPrecondition {
 					s.DLog(ctx, fmt.Sprintf("Sleeping for %v for %v (%v)", queueName, time.Minute*2, err))
 
-					time.Sleep(time.Minute)
+					time.Sleep(time.Minute * 5)
 				}
 			} else {
 				s.errorCount[queueName] = 0
