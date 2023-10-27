@@ -305,11 +305,11 @@ func (s *Server) runQueue(queueName string) error {
 				if status.Code(err) != codes.FailedPrecondition {
 					s.DLog(ctx, fmt.Sprintf("Sleeping for %v for %v (%v)", queueName, time.Minute*2, err))
 
-					time.Sleep(time.Minute * 5)
+					time.Sleep(time.Second * 30)
 
 					if status.Code(err) == codes.ResourceExhausted {
 						s.CtxLog(ctx, fmt.Sprintf("Sleeping for re"))
-						time.Sleep(time.Minute * 30)
+						time.Sleep(time.Minute)
 					}
 				}
 			} else {
