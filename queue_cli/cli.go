@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"time"
 
 	"github.com/brotherlogic/goserver/utils"
@@ -101,6 +102,10 @@ func main() {
 			if err != nil {
 				log.Fatalf("Err: %v", err)
 			}
+
+			sort.SliceStable(queue.Entries, func(i, j int) bool {
+				return queue.Entries[i].RunTime < queue.Entries[j].RunTime
+			})
 
 			for i, elem := range queue.GetEntries() {
 				fmt.Printf("%v - %v [%v]\n", i, elem, time.Unix(elem.GetRunTime(), 0))
