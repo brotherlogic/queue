@@ -151,6 +151,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 			}
 		}
 
+		// This is not a unique add, so exit early
 		if found {
 			return &pb.AddQueueItemResponse{}, nil
 		}
