@@ -63,6 +63,7 @@ message AddQueueItemRequest {
     int64 run_time = 4;
     bool require_unique = 5;
     float cons = 6;
+    bool add_if_not_present = 7;
 }
 
 message AddQueueItemResponse {}

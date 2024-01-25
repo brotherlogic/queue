@@ -143,6 +143,19 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		return nil, err
 	}
 
+	if req.GetRequireUnique() {
+		found := false
+		for _, entry := range queue.GetEntries() {
+			if entry.GetState() != pb.Entry_RUNNING && entry.GetKey() == req.GetKey() {
+				found = true
+			}
+		}
+
+		if found {
+			return &pb.AddQueueItemResponse{}, nil
+		}
+	}
+
 	//Silent exit when the queue is full
 	if queue.GetMaxLength() > 0 && len(queue.Entries) > int(queue.MaxLength) {
 		s.CtxLog(ctx, fmt.Sprintf("Dropping because queue is full (%v) given %v", queue.GetMaxLength(), len(queue.Entries)))
