@@ -143,7 +143,7 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		return nil, err
 	}
 
-	if req.GetRequireUnique() {
+	if req.GetAddIfNotPresent() {
 		found := false
 		for _, entry := range queue.GetEntries() {
 			if entry.GetState() != pb.Entry_RUNNING && entry.GetKey() == req.GetKey() {
