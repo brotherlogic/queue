@@ -155,6 +155,19 @@ func (s *Server) AddQueueItem(ctx context.Context, req *pb.AddQueueItemRequest) 
 		if found {
 			return &pb.AddQueueItemResponse{}, nil
 		}
+	} else {
+		isAfter := false
+		for _, entry := range queue.GetEntries() {
+			if entry.GetState() != pb.Entry_RUNNING && entry.GetKey() == req.GetKey() {
+				if entry.GetRunTime() < req.GetRunTime() {
+					isAfter = true
+				}
+			}
+		}
+
+		if isAfter {
+			return &pb.AddQueueItemResponse{}, nil
+		}
 	}
 
 	//Silent exit when the queue is full
