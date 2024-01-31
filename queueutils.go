@@ -71,7 +71,7 @@ func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
 
 	s.CtxLog(ctx, fmt.Sprintf("Written %v:%v [%v] with %v", res.GetHash(), res.GetTimestamp(), len(queue.GetEntries()), res.GetConsensus()))
 
-	if res.GetConsensus() < 0.75 {
+	if res.GetConsensus() < 0.55 {
 		return fmt.Errorf("could not get write for queue %v consensus (%v)", queue.GetName(), res.GetConsensus())
 	}
 
@@ -126,7 +126,7 @@ func (s *Server) getNextRunTime(name string) (time.Time, time.Duration) {
 	ctx, cancel := utils.ManualContext("queue-"+name, time.Minute)
 	defer cancel()
 
-	queue, err := s.loadQueue(ctx, name, 0.75)
+	queue, err := s.loadQueue(ctx, name, 0.55)
 	if err != nil {
 		return time.Now().Add(time.Minute), time.Minute
 	}
@@ -158,7 +158,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 		lerr := s.ReleaseLockingElection(ctx, "queuelock-"+name, unlockKey)
 		releases.With(prometheus.Labels{"queue": name, "error": fmt.Sprintf("%v", lerr)}).Inc()
 	}()
-	queue, err := s.loadQueue(ctx, name, 0.75)
+	queue, err := s.loadQueue(ctx, name, 0.55)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +202,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
 			s.CtxLog(ctx, fmt.Sprintf("Failed %v so adjusting time", err))
-			queue, lerr := s.loadQueue(ctx, name, 0.75)
+			queue, lerr := s.loadQueue(ctx, name, 0.55)
 			if lerr != nil {
 				return nil, lerr
 			}
@@ -222,7 +222,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 		}
 
 		// Remove the entry from the queue - do a reload to stop stomping on recent additions
-		queue, err = s.loadQueue(ctx, name, 0.75)
+		queue, err = s.loadQueue(ctx, name, 0.55)
 		if err != nil {
 			return nil, err
 		}
