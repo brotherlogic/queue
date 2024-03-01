@@ -175,8 +175,10 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 		s.RaiseIssue("Not enough adds in queue", fmt.Sprintf("Needs more entries to add records"))
 	}
 
-	if latest == nil && name != "wants_sync" {
-		s.RaiseIssue("No Entries in Queue", fmt.Sprintf("Queue %v has no entries to run", name))
+	if latest == nil {
+		if name != "wants_sync" {
+			s.RaiseIssue("No Entries in Queue", fmt.Sprintf("Queue %v has no entries to run", name))
+		}
 		return nil, nil
 	}
 
