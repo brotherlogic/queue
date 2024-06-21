@@ -1,7 +1,7 @@
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
-github.com/brotherlogic/backup v0.0.0-20240614025458-553aa9adcff9 h1:U5ZCJdH6xfDPfn6rOSIaEYIe+SJRnL20c35NVRaxesQ=
-github.com/brotherlogic/backup v0.0.0-20240614025458-553aa9adcff9/go.mod h1:sZxuHlPXY6cnhJSywhoAvhDz9385Y6q2kuQfnW413ls=
+github.com/brotherlogic/backup v0.0.0-20240621175319-32e9d78f7a61 h1:6dQ8G56zA0e+WAhnnWhBKtNvWsgeJtfIUTx52UBLg0o=
+github.com/brotherlogic/backup v0.0.0-20240621175319-32e9d78f7a61/go.mod h1:oIkNRandGAL2yeAn4GcvKkJjK0aQtZGbW9Apg7vdS6s=
 github.com/brotherlogic/buildserver v0.0.0-20240621171641-a1b556ee156e h1:tffFTxZAN7JDNhvazQg7n1/Zv7FTJ5mvxFUlPPmByho=
 github.com/brotherlogic/buildserver v0.0.0-20240621171641-a1b556ee156e/go.mod h1:+gJVjCSokpAh3EUXEINgHIN9QbCiJ91dB6jxw92Ygnw=
 github.com/brotherlogic/datastore v0.0.0-20240621175245-795fae76b114 h1:s010pNPabotIKHASstk1qBtMTAUDjqygHaOOExtANeU=
@@ -22,8 +22,8 @@ github.com/brotherlogic/goserver v0.0.0-20240303220030-80da220f0393 h1:URH8Z026z
 github.com/brotherlogic/goserver v0.0.0-20240303220030-80da220f0393/go.mod h1:DQcHpGZOjqnapi7JCYxmpOebkVjqgpfLuPNNNquy4Z0=
 github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 h1:6e12Cl80VtMghgEyTyx1tZB1mUSSBHeLhKvikwb7kIQ=
 github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126/go.mod h1:2JK2kJhI5ler7e7M1WtIpIkiNGG2qy8V6X7VZLCsd5k=
-github.com/brotherlogic/lock v0.0.0-20240620211947-46a549a40fee h1:5UmUdT/vchv5vKNDzYhT95oOLU//5MAwxd/lZA1xn20=
-github.com/brotherlogic/lock v0.0.0-20240620211947-46a549a40fee/go.mod h1:FOmyq9uHpYLGJioYMs3vNlGEOWHFXUfGcSGg5DCQ6Lo=
+github.com/brotherlogic/lock v0.0.0-20240621175333-5f07219e4cac h1:/IpW+Ix4/KXlA8dydhRIaWrAz4XwVZxNXXLWwSLcknc=
+github.com/brotherlogic/lock v0.0.0-20240621175333-5f07219e4cac/go.mod h1:K8zUUN1El670jBlioTOWUZQxxHEJlpnPOVVtU9bkOrE=
 github.com/brotherlogic/logging v0.0.0-20240621172251-d0f9e0def80c h1:VB4RkERwO7zHgVUtRnax8l8qI5ez4yz8Bae11CeoS68=
 github.com/brotherlogic/logging v0.0.0-20240621172251-d0f9e0def80c/go.mod h1:0AqH8vBXtI9xRqipZk03lYWYPUJqqFL/EnyK6uDqxF0=
 github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 h1:hxu2T9JspE76sL3XAx/CNtA9bOO6QCEJkyG9rBXFEVA=
@@ -32,10 +32,10 @@ github.com/brotherlogic/recordadder v0.0.0-20240619144735-8f6a26e4c5a7 h1:foWd08
 github.com/brotherlogic/recordadder v0.0.0-20240619144735-8f6a26e4c5a7/go.mod h1:mr+6iE5YWdg0681lyETn4IlCILvE/jwHT/GClPe+Ahg=
 github.com/brotherlogic/recordcollection v0.0.0-20240620132824-7180796040a6 h1:4TGwo6go0uP50q3KTxdBCFRg+2kGnVzAAX+CTNZ9x10=
 github.com/brotherlogic/recordcollection v0.0.0-20240620132824-7180796040a6/go.mod h1:c3EJV3AxnHnCX0oXohOB6XqQgfWIDkP7te/OKGDQTgA=
-github.com/brotherlogic/recordfanout v0.0.0-20240621012326-9b529d6a24ef h1:KGswDGyv1/k4NmulKZLQtAEMDEXV80TU2aKXKDbKeVE=
-github.com/brotherlogic/recordfanout v0.0.0-20240621012326-9b529d6a24ef/go.mod h1:hGwsZ9Pnb64mjTqbTnaYy0CO3SV4a5HIxlJB4F9wbFM=
-github.com/brotherlogic/recordsales v0.0.0-20240620211928-52558e709f08 h1:JhyqJ5zwTbXrt9P4A73bBAPzPKfxeO9ZLz2GHBnCVPw=
-github.com/brotherlogic/recordsales v0.0.0-20240620211928-52558e709f08/go.mod h1:+6Omu0MwUZTtHKXKqUyJITGuxyDCHV3Tm1++3CRh9iY=
+github.com/brotherlogic/recordfanout v0.0.0-20240621175538-064ec2bfda79 h1:dcWLrMSpXUJ/pze0HSHD2oaeIG0pzsLQ2H+5MTeD2yo=
+github.com/brotherlogic/recordfanout v0.0.0-20240621175538-064ec2bfda79/go.mod h1:pJyLL5+nSBozcCVytvAw7a233pyxTfG8aePjAoG0sng=
+github.com/brotherlogic/recordsales v0.0.0-20240621175549-ab70e82ab585 h1:7f3GqiNnUdUesBsmDkGnw7gr5uqIofUTZfsNMTDWBAw=
+github.com/brotherlogic/recordsales v0.0.0-20240621175549-ab70e82ab585/go.mod h1:hK5SNzojpj+fiCz2xO7Grf12z5IY5YFUBCCwoBetEds=
 github.com/brotherlogic/recordupdater v0.3.0 h1:6vNV0ui9sjYfUQoLot3+ojPD6/R3uGkJy3NXmgaT8zE=
 github.com/brotherlogic/recordupdater v0.3.0/go.mod h1:6GB0xrq8j6n/YLUe3imHhUo9zLlIXklwogBgSkAtvpM=
 github.com/brotherlogic/recordwants v0.0.0-20240620202123-f2c2029eeec3 h1:oXkEn01MFo25EqvKAi9/fDlV/b7c+PdU/ktwQeFF9Us=
