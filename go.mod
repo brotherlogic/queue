@@ -3,7 +3,7 @@ module github.com/brotherlogic/queue
 go 1.22.1
 
 require (
-	github.com/brotherlogic/backup v0.0.0-20240628210908-3052aa80a86c
+	github.com/brotherlogic/backup v0.0.0-20240628212330-de7a335d726f
 	github.com/brotherlogic/dstore v0.0.0-20240628163337-2373836da42f
 	github.com/brotherlogic/goserver v0.0.0-20240303220030-80da220f0393
 	github.com/brotherlogic/recordadder v0.0.0-20240628211849-85aca2a60cf2
