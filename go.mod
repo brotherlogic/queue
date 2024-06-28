@@ -3,15 +3,15 @@ module github.com/brotherlogic/queue
 go 1.22.1
 
 require (
-	github.com/brotherlogic/backup v0.0.0-20240621180258-056c859f27dc
-	github.com/brotherlogic/dstore v0.0.0-20240621172204-4f82d384fb46
+	github.com/brotherlogic/backup v0.0.0-20240621180550-f38d75199b97
+	github.com/brotherlogic/dstore v0.0.0-20240628163337-2373836da42f
 	github.com/brotherlogic/goserver v0.0.0-20240303220030-80da220f0393
 	github.com/brotherlogic/recordadder v0.0.0-20240621175832-b132cc5a5abf
-	github.com/brotherlogic/recordfanout v0.0.0-20240621175538-064ec2bfda79
-	github.com/brotherlogic/recordsales v0.0.0-20240621175549-ab70e82ab585
+	github.com/brotherlogic/recordfanout v0.0.0-20240628021925-524cc3bb0377
+	github.com/brotherlogic/recordsales v0.0.0-20240621182751-7a58a33f411d
 	github.com/brotherlogic/recordupdater v0.3.0
-	github.com/brotherlogic/recordwants v0.0.0-20240621180326-a645574e2134
-	github.com/brotherlogic/temp v0.0.0-20240621013721-846f8b554875
+	github.com/brotherlogic/recordwants v0.0.0-20240621183937-f5be48ee50ff
+	github.com/brotherlogic/temp v0.0.0-20240621191930-195f2a970fa2
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.19.1
 	golang.org/x/net v0.26.0
@@ -22,9 +22,9 @@ require (
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/brotherlogic/buildserver v0.0.0-20240621171641-a1b556ee156e // indirect
-	github.com/brotherlogic/datastore v0.0.0-20240621175245-795fae76b114 // indirect
+	github.com/brotherlogic/datastore v0.0.0-20240628021910-0ede9e3643aa // indirect
 	github.com/brotherlogic/discovery v0.0.0-20240621172123-7b59355ea5d1 // indirect
-	github.com/brotherlogic/githubcard v0.0.0-20240618232944-40a669976fff // indirect
+	github.com/brotherlogic/githubcard v0.0.0-20240624142626-13155f726c58 // indirect
 	github.com/brotherlogic/githubridge v0.2802.0 // indirect
 	github.com/brotherlogic/gobuildslave v0.0.0-20240621172257-54ed0a163bb2 // indirect
 	github.com/brotherlogic/godiscogs v0.0.0-20240619222044-69e643325529 // indirect
@@ -35,11 +35,12 @@ require (
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/mitchellh/go-ps v1.0.0 // indirect
+	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/prometheus/client_model v0.6.1 // indirect
-	github.com/prometheus/common v0.54.0 // indirect
+	github.com/prometheus/common v0.55.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/struCoder/pidusage v0.2.1 // indirect
 	golang.org/x/sys v0.21.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240617180043-68d350f18fd4 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20240624140628-dc46fd24d27d // indirect
 )
