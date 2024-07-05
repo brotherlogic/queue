@@ -1,7 +1,7 @@
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
-github.com/brotherlogic/backup v0.0.0-20240705221247-dd1039c69d54 h1:Y4tEZELacoKWqhk8TDDzHPEC2ZxphgRQ1qWG/GK4H2M=
-github.com/brotherlogic/backup v0.0.0-20240705221247-dd1039c69d54/go.mod h1:rIVNhrrM13Y+75ReKjb23KPDZ3f69gfgaGWk9LH+Esw=
+github.com/brotherlogic/backup v0.0.0-20240705222246-a0f8381f38f9 h1:6+eeMdgTXbrtmW9Pj4+w9JR1Jxb0zoF+laJffDe+0GI=
+github.com/brotherlogic/backup v0.0.0-20240705222246-a0f8381f38f9/go.mod h1:lwMcFpBTydH7Li2fzj2AuyJi2qbCyd/5y4fXIEUL67A=
 github.com/brotherlogic/buildserver v0.0.0-20240705220503-89995eb137f4 h1:LsuPCTd/pcpqYqvSQoqPveaj8xtsL+MyXysyxNNJ6qo=
 github.com/brotherlogic/buildserver v0.0.0-20240705220503-89995eb137f4/go.mod h1:zfVEk2E30rFpNFnpVg6LBulFfmd6rfVWMsO/iNXSdBo=
 github.com/brotherlogic/datastore v0.0.0-20240705024151-ad9e144aa8f8 h1:/qtkypdXbeoB93eGODc4I/WQXqlqEOf49zMTEiH1SNA=
@@ -40,8 +40,8 @@ github.com/brotherlogic/recordupdater v0.3.0 h1:6vNV0ui9sjYfUQoLot3+ojPD6/R3uGkJ
 github.com/brotherlogic/recordupdater v0.3.0/go.mod h1:6GB0xrq8j6n/YLUe3imHhUo9zLlIXklwogBgSkAtvpM=
 github.com/brotherlogic/recordwants v0.0.0-20240628214635-d1e073bb2c74 h1:umUr9uZPhavYjWLZH9u8sG4fN+JOHv1d278rgCzC9Vs=
 github.com/brotherlogic/recordwants v0.0.0-20240628214635-d1e073bb2c74/go.mod h1:9PFOADp240/kmsj0CK7w4U8aQZEh39Men+FK6xq750E=
-github.com/brotherlogic/temp v0.0.0-20240705221231-caad8c418e51 h1:5TOJN+02s7kpcKN28JLnqh0aJ0nQdT05L2l2QiNVmKQ=
-github.com/brotherlogic/temp v0.0.0-20240705221231-caad8c418e51/go.mod h1:yCjA6HFKSpeNd4HSoJLKFbxWrLEu0NLFXOfgMVCAdMg=
+github.com/brotherlogic/temp v0.0.0-20240705222008-91a2259294ee h1:/Og64fbGKVpKWNTD2GcQvSUgOA5CQTyQtjhTtMx3LdE=
+github.com/brotherlogic/temp v0.0.0-20240705222008-91a2259294ee/go.mod h1:EPF1TIf/nqBKVBlDldVZH0QIWl4vOCYqNFPd0tSY8JE=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 h1:YjFE4Sa+wwbl4yJwJaMQVeA4CMzLIDbbIuSMdsEp5/w=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2/go.mod h1:ODrbMDhG+yOp2vie9vE4oaKsKhILDralZMr7PJ4HrJY=
 github.com/cespare/xxhash/v2 v2.3.0 h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=
