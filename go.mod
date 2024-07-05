@@ -3,15 +3,15 @@ module github.com/brotherlogic/queue
 go 1.22.1
 
 require (
-	github.com/brotherlogic/backup v0.0.0-20240705215833-630bf3678fa1
+	github.com/brotherlogic/backup v0.0.0-20240705215946-ad22dec75fa7
 	github.com/brotherlogic/dstore v0.0.0-20240705165527-7982c4fed622
 	github.com/brotherlogic/goserver v0.0.0-20240303220030-80da220f0393
-	github.com/brotherlogic/recordadder v0.0.0-20240705215608-785bd24fc1e8
+	github.com/brotherlogic/recordadder v0.0.0-20240705220144-d5c7a16231ed
 	github.com/brotherlogic/recordfanout v0.0.0-20240703174504-1019b964b32e
 	github.com/brotherlogic/recordsales v0.0.0-20240628214807-a2bfeed54cc2
 	github.com/brotherlogic/recordupdater v0.3.0
 	github.com/brotherlogic/recordwants v0.0.0-20240628214635-d1e073bb2c74
-	github.com/brotherlogic/temp v0.0.0-20240705215033-ae112421fe5f
+	github.com/brotherlogic/temp v0.0.0-20240705215915-068f58882883
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.19.1
 	golang.org/x/net v0.27.0
