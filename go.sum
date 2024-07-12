@@ -40,8 +40,8 @@ github.com/brotherlogic/recordupdater v0.3.0 h1:6vNV0ui9sjYfUQoLot3+ojPD6/R3uGkJ
 github.com/brotherlogic/recordupdater v0.3.0/go.mod h1:6GB0xrq8j6n/YLUe3imHhUo9zLlIXklwogBgSkAtvpM=
 github.com/brotherlogic/recordwants v0.0.0-20240712232307-26b94e989156 h1:B32KO6Uo3XwXnflEN5n833+NnDNleYLCMGI0qZ0mHUQ=
 github.com/brotherlogic/recordwants v0.0.0-20240712232307-26b94e989156/go.mod h1:Bqfvt1M+sQups2jxzVbfFvpKGqocBgrdEKCUUW4M+B4=
-github.com/brotherlogic/temp v0.0.0-20240712232057-034a2ce230a3 h1:SYQCmX1+6Ozbyqu69KXFb5JwKC/fnmsuc3KZ123e6mY=
-github.com/brotherlogic/temp v0.0.0-20240712232057-034a2ce230a3/go.mod h1:8Q5sE9hXxg2Xo43AeROMcqNg/mpMAqiw4+q0sHvGAyE=
+github.com/brotherlogic/temp v0.0.0-20240712233031-1272f20763c2 h1:JCL4RyYdQ+1bdF4MQ153fbwZz9hoRol9SPlFbPzuSl8=
+github.com/brotherlogic/temp v0.0.0-20240712233031-1272f20763c2/go.mod h1:RzfcSK5EbC3BRU+xFzO78G0yBCRz1pyi0ulidcVRE5k=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 h1:YjFE4Sa+wwbl4yJwJaMQVeA4CMzLIDbbIuSMdsEp5/w=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2/go.mod h1:ODrbMDhG+yOp2vie9vE4oaKsKhILDralZMr7PJ4HrJY=
 github.com/cespare/xxhash/v2 v2.3.0 h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=

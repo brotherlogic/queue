@@ -11,7 +11,7 @@ require (
 	github.com/brotherlogic/recordsales v0.0.0-20240712232138-11b4514ee7b1
 	github.com/brotherlogic/recordupdater v0.3.0
 	github.com/brotherlogic/recordwants v0.0.0-20240712232307-26b94e989156
-	github.com/brotherlogic/temp v0.0.0-20240712232057-034a2ce230a3
+	github.com/brotherlogic/temp v0.0.0-20240712233031-1272f20763c2
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.19.1
 	golang.org/x/net v0.27.0
