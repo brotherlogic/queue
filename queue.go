@@ -39,7 +39,7 @@ const (
 	QUEUE_KEY  = "github.com/brotherlogic/queue/queues"
 )
 
-//Server main server type
+// Server main server type
 type Server struct {
 	*goserver.GoServer
 	cmap        map[string]interface{}

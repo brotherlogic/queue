@@ -49,6 +49,10 @@ var (
 		Name: "queue_runtime",
 		Help: "The number of running queues",
 	}, []string{"queue_name"})
+	delay = promauto.NewGaugeVec(prometheus.GaugeOpts{
+		Name: "queue_delay",
+		Help: "The number of running queues",
+	}, []string{"queue_name"})
 )
 
 func (s *Server) saveQueue(ctx context.Context, queue *pb.Queue) error {
@@ -201,6 +205,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 
 		elems := strings.Split(queue.GetEndpoint(), "/")
 		s.DLog(ctx, fmt.Sprintf("Running %v on queue %v", latest.GetKey(), name))
+		delay.With(prometheus.Labels{"queue_name": name}).Set(time.Since(time.Unix(latest.GetRunTime(), 0)).Seconds())
 		err = s.runRPC(ctx, elems[0], elems[1], pt)
 		if err != nil {
 			s.CtxLog(ctx, fmt.Sprintf("Failed %v so adjusting time", err))
