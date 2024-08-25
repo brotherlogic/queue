@@ -254,6 +254,9 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 	}
 
 	if req.GetDrain() {
+		s.runningLock.Lock()
+		defer s.runningLock.Unlock()
+
 		queue.Entries = make([]*pb.Entry, 0)
 		return &pb.DeleteQueueItemResponse{}, s.saveQueue(ctx, queue)
 	}
