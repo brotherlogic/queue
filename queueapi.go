@@ -253,6 +253,11 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 		return nil, err
 	}
 
+	if req.GetDrain() {
+		queue.Entries = make([]*pb.Entry, 0)
+		return &pb.DeleteQueueItemResponse{}, s.saveQueue(ctx, queue)
+	}
+
 	var latest *pb.Entry
 	for _, q := range queue.GetEntries() {
 		if req.GetKey() != "" {

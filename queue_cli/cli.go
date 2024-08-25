@@ -45,6 +45,13 @@ func main() {
 			_, err := client.DeleteQueueItem(ctx, &pb.DeleteQueueItemRequest{QueueName: *name, Key: *key})
 			fmt.Printf("Delete w/ key: %v\n", err)
 		}
+	case "drain":
+		deleteFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
+		var name = deleteFlags.String("name", "", "Name of the queue")
+		if err := deleteFlags.Parse(os.Args[2:]); err == nil {
+			_, err := client.DeleteQueueItem(ctx, &pb.DeleteQueueItemRequest{QueueName: *name, Drain: true})
+			fmt.Printf("Delete w/ key: %v\n", err)
+		}
 	case "add":
 		addFlags := flag.NewFlagSet("AddQueue", flag.ExitOnError)
 		var name = addFlags.String("name", "", "Name of the queue")
