@@ -3,15 +3,15 @@ module github.com/brotherlogic/queue
 go 1.23.2
 
 require (
-	github.com/brotherlogic/backup v0.0.0-20241109205107-4521a202bc69
+	github.com/brotherlogic/backup v0.0.0-20241124231911-69d0cebedafc
 	github.com/brotherlogic/dstore v0.0.0-20241109024657-6ae3fcb5a6c1
 	github.com/brotherlogic/goserver v0.0.0-20240826215223-fccbac46b3d4
-	github.com/brotherlogic/recordadder v0.0.0-20241118143831-62fd887001f2
-	github.com/brotherlogic/recordfanout v0.0.0-20241116092036-20be4266f7b9
-	github.com/brotherlogic/recordsales v0.0.0-20241116031857-c9c2a334287e
+	github.com/brotherlogic/recordadder v0.0.0-20241130130555-fe494f1f6fa4
+	github.com/brotherlogic/recordfanout v0.0.0-20241123093103-db9de53ba1e0
+	github.com/brotherlogic/recordsales v0.0.0-20241123032717-10560e9d375f
 	github.com/brotherlogic/recordupdater v0.3.0
-	github.com/brotherlogic/recordwants v0.0.0-20241116035530-c31efd3920f4
-	github.com/brotherlogic/temp v0.0.0-20241116110058-a77bbc02d1a9
+	github.com/brotherlogic/recordwants v0.0.0-20241123042612-de4deaf59ae4
+	github.com/brotherlogic/temp v0.0.0-20241123113012-94ad59c6eddc
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.20.5
 	golang.org/x/net v0.31.0
@@ -21,11 +21,11 @@ require (
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20241109072002-87f9d05ce41a // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20241124212151-187a7b28453f // indirect
 	github.com/brotherlogic/datastore v0.0.0-20240830190304-3b849e438317 // indirect
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20241120095545-56f840e19fc6 // indirect
-	github.com/brotherlogic/githubridge v0.2814.0 // indirect
+	github.com/brotherlogic/githubridge v0.2816.0 // indirect
 	github.com/brotherlogic/gobuildslave v0.0.0-20241111085829-8d4e5069a7fd // indirect
 	github.com/brotherlogic/godiscogs v0.0.0-20240823195726-9a8d322e6898 // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
