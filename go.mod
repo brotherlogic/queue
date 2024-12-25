@@ -8,9 +8,9 @@ require (
 	github.com/brotherlogic/goserver v0.0.0-20240826215223-fccbac46b3d4
 	github.com/brotherlogic/recordadder v0.0.0-20241225073854-e74a80c94b30
 	github.com/brotherlogic/recordfanout v0.0.0-20241225063630-26758afda612
-	github.com/brotherlogic/recordsales v0.0.0-20241225073624-e8b83968eab2
+	github.com/brotherlogic/recordsales v0.0.0-20241225104316-40856fb56ae8
 	github.com/brotherlogic/recordupdater v0.3.0
-	github.com/brotherlogic/recordwants v0.0.0-20241225073801-042a1b4d52a7
+	github.com/brotherlogic/recordwants v0.0.0-20241225094106-ac7ab76386e4
 	github.com/brotherlogic/temp v0.0.0-20241225094000-a05d551d3895
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.20.5
