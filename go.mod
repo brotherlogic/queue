@@ -11,7 +11,7 @@ require (
 	github.com/brotherlogic/recordsales v0.0.0-20241227042806-584aeeca1c7a
 	github.com/brotherlogic/recordupdater v0.3.0
 	github.com/brotherlogic/recordwants v0.0.0-20241226232122-1324ae0884de
-	github.com/brotherlogic/temp v0.0.0-20241227033221-cd7fb304281e
+	github.com/brotherlogic/temp v0.0.0-20241227042853-04d2efc8eb1e
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.20.5
 	golang.org/x/net v0.33.0
@@ -30,7 +30,7 @@ require (
 	github.com/brotherlogic/godiscogs v0.0.0-20240823195726-9a8d322e6898 // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
 	github.com/brotherlogic/lock v0.0.0-20241227042605-7e3e4d7734f7 // indirect
-	github.com/brotherlogic/logging v0.0.0-20241227031705-57c2e2fdda7b // indirect
+	github.com/brotherlogic/logging v0.0.0-20241227050256-c4a16248753f // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
