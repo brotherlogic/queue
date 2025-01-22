@@ -8,7 +8,7 @@ require (
 	github.com/brotherlogic/goserver v0.0.0-20240826215223-fccbac46b3d4
 	github.com/brotherlogic/recordadder v0.0.0-20250121223622-20ebf394a7f6
 	github.com/brotherlogic/recordfanout v0.0.0-20250121175629-71134d84c1f6
-	github.com/brotherlogic/recordsales v0.0.0-20250115002352-a2e17a3bd5fb
+	github.com/brotherlogic/recordsales v0.0.0-20250122003411-9b4f4cd4bf19
 	github.com/brotherlogic/recordupdater v0.3.0
 	github.com/brotherlogic/recordwants v0.0.0-20250121223637-79937d4c8918
 	github.com/brotherlogic/temp v0.0.0-20250121230348-23a10bbe7f86
