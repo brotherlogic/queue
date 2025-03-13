@@ -8,7 +8,7 @@ require (
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/recordadder v0.0.0-20250313160249-3d1807428bdb
 	github.com/brotherlogic/recordfanout v0.0.0-20250313161016-70c5e072a5e8
-	github.com/brotherlogic/recordsales v0.0.0-20250313160512-4ae28fa32fc5
+	github.com/brotherlogic/recordsales v0.0.0-20250313180507-3047f08cd05d
 	github.com/brotherlogic/recordupdater v0.3.0
 	github.com/brotherlogic/recordwants v0.0.0-20250313160604-9c88c3ae6190
 	github.com/brotherlogic/temp v0.0.0-20250311190805-30f82ef1cead
@@ -26,11 +26,11 @@ require (
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250313160503-7d0a867ca46b // indirect
 	github.com/brotherlogic/githubridge v0.2849.0 // indirect
-	github.com/brotherlogic/gobuildslave v0.0.0-20250313161558-513950e3bf04 // indirect
+	github.com/brotherlogic/gobuildslave v0.0.0-20250313171943-fa2273e53790 // indirect
 	github.com/brotherlogic/godiscogs v0.0.0-20250131163651-1e34c776a68e // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
-	github.com/brotherlogic/lock v0.0.0-20250313160224-29e276c967b4 // indirect
-	github.com/brotherlogic/logging v0.0.0-20250313151718-8fe2785fa0f5 // indirect
+	github.com/brotherlogic/lock v0.0.0-20250313180704-4e93f864aa0a // indirect
+	github.com/brotherlogic/logging v0.0.0-20250313184253-12d7af904a34 // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
@@ -38,10 +38,10 @@ require (
 	github.com/mitchellh/go-ps v1.0.0 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/prometheus/client_model v0.6.1 // indirect
-	github.com/prometheus/common v0.62.0 // indirect
+	github.com/prometheus/common v0.63.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/struCoder/pidusage v0.2.1 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250311190419-81fb87f6b8bf // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250313182123-33a14cd5fa76 // indirect
 )
