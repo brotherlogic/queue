@@ -6,11 +6,11 @@ require (
 	github.com/brotherlogic/backup v0.0.0-20250313012901-29fc05844778
 	github.com/brotherlogic/dstore v0.0.0-20250314103159-5cb664e5628b
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
-	github.com/brotherlogic/recordadder v0.0.0-20250314102457-3341ca9f74d9
+	github.com/brotherlogic/recordadder v0.0.0-20250314112805-3f58b18df516
 	github.com/brotherlogic/recordfanout v0.0.0-20250314112456-a496e7d8286a
-	github.com/brotherlogic/recordsales v0.0.0-20250314102618-39c9f93e3148
+	github.com/brotherlogic/recordsales v0.0.0-20250314113325-73ef9867e2ee
 	github.com/brotherlogic/recordupdater v0.3.0
-	github.com/brotherlogic/recordwants v0.0.0-20250314092436-b6c0c182ac6c
+	github.com/brotherlogic/recordwants v0.0.0-20250314113438-2dd462e7a879
 	github.com/brotherlogic/temp v0.0.0-20250311190805-30f82ef1cead
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.21.1
