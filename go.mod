@@ -6,9 +6,9 @@ require (
 	github.com/brotherlogic/backup v0.0.0-20250313012901-29fc05844778
 	github.com/brotherlogic/dstore v0.0.0-20250316123329-72b93acf1d27
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
-	github.com/brotherlogic/recordadder v0.0.0-20250316130033-0da5ce96a1dc
+	github.com/brotherlogic/recordadder v0.0.0-20250316131038-434e1c740965
 	github.com/brotherlogic/recordfanout v0.0.0-20250316130219-99844f300fa8
-	github.com/brotherlogic/recordsales v0.0.0-20250316121440-fb907d6cd4b4
+	github.com/brotherlogic/recordsales v0.0.0-20250316131531-0dec271246fb
 	github.com/brotherlogic/recordupdater v0.3.0
 	github.com/brotherlogic/recordwants v0.0.0-20250316125151-9a7d360d0dd9
 	github.com/brotherlogic/temp v0.0.0-20250311190805-30f82ef1cead
@@ -26,11 +26,11 @@ require (
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250316125851-c3cba6f3435e // indirect
 	github.com/brotherlogic/githubridge v0.2849.0 // indirect
-	github.com/brotherlogic/gobuildslave v0.0.0-20250316123044-2e43bbf62c2d // indirect
+	github.com/brotherlogic/gobuildslave v0.0.0-20250316131318-f12efcd1d86c // indirect
 	github.com/brotherlogic/godiscogs v0.0.0-20250131163651-1e34c776a68e // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
 	github.com/brotherlogic/lock v0.0.0-20250316105749-22ed2a43ce86 // indirect
-	github.com/brotherlogic/logging v0.0.0-20250316121910-a5ed2ad23996 // indirect
+	github.com/brotherlogic/logging v0.0.0-20250316131150-dc097d5ca9a2 // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
