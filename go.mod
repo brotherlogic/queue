@@ -6,11 +6,11 @@ require (
 	github.com/brotherlogic/backup v0.0.0-20250313012901-29fc05844778
 	github.com/brotherlogic/dstore v0.0.0-20250317144121-dd1ad6b629ba
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
-	github.com/brotherlogic/recordadder v0.0.0-20250317143631-32f4b742132c
-	github.com/brotherlogic/recordfanout v0.0.0-20250317141939-58401f40a81c
+	github.com/brotherlogic/recordadder v0.0.0-20250317151834-fb939c853adf
+	github.com/brotherlogic/recordfanout v0.0.0-20250317151209-699be1eca5e3
 	github.com/brotherlogic/recordsales v0.0.0-20250317135713-7facbb3d8ead
 	github.com/brotherlogic/recordupdater v0.3.0
-	github.com/brotherlogic/recordwants v0.0.0-20250317141534-0f7559c5bf34
+	github.com/brotherlogic/recordwants v0.0.0-20250317151731-effed0209389
 	github.com/brotherlogic/temp v0.0.0-20250311190805-30f82ef1cead
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.21.1
@@ -24,12 +24,12 @@ require (
 	github.com/brotherlogic/buildserver v0.0.0-20250317114833-498af2d9fda8 // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250313015544-917b63bdd6ff // indirect
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
-	github.com/brotherlogic/githubcard v0.0.0-20250317132141-003b600856ec // indirect
+	github.com/brotherlogic/githubcard v0.0.0-20250317151826-2c94cc04262e // indirect
 	github.com/brotherlogic/githubridge v0.2849.0 // indirect
 	github.com/brotherlogic/gobuildslave v0.0.0-20250317143611-615abd00b7db // indirect
 	github.com/brotherlogic/godiscogs v0.0.0-20250131163651-1e34c776a68e // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
-	github.com/brotherlogic/lock v0.0.0-20250317143631-3151b02bc087 // indirect
+	github.com/brotherlogic/lock v0.0.0-20250317144750-abcd1a12346b // indirect
 	github.com/brotherlogic/logging v0.0.0-20250317144005-86f2f3587d81 // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
