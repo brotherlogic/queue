@@ -8,9 +8,9 @@ require (
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/recordadder v0.0.0-20250319122515-2a0b8541652b
 	github.com/brotherlogic/recordfanout v0.0.0-20250319104317-1ca16ce5ac00
-	github.com/brotherlogic/recordsales v0.0.0-20250319114543-2a550bbd444c
+	github.com/brotherlogic/recordsales v0.0.0-20250319124753-a65a7fc7177a
 	github.com/brotherlogic/recordupdater v0.3.0
-	github.com/brotherlogic/recordwants v0.0.0-20250319114811-75d69afda503
+	github.com/brotherlogic/recordwants v0.0.0-20250319125241-1cff8fb5dc6f
 	github.com/brotherlogic/temp v0.0.0-20250319123330-18c656ef3e06
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.21.1
@@ -21,7 +21,7 @@ require (
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20250319114926-934feeb411d2 // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20250319124747-22e559f58182 // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250313015544-917b63bdd6ff // indirect
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250319124457-4d38d8979781 // indirect
@@ -29,8 +29,8 @@ require (
 	github.com/brotherlogic/gobuildslave v0.0.0-20250319122509-c35f17580bb8 // indirect
 	github.com/brotherlogic/godiscogs v0.0.0-20250131163651-1e34c776a68e // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
-	github.com/brotherlogic/lock v0.0.0-20250319124251-6088196078a2 // indirect
-	github.com/brotherlogic/logging v0.0.0-20250319124220-5604e0ba572f // indirect
+	github.com/brotherlogic/lock v0.0.0-20250319125702-26cb1f34be02 // indirect
+	github.com/brotherlogic/logging v0.0.0-20250319130723-485ad898a588 // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
