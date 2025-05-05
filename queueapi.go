@@ -275,7 +275,7 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 		}
 	}
 
-	s.CtxLog(ctx, fmt.Sprintf("DELETING %v with %v", latest, req.GetKey()))
+	s.CtxLog(ctx, fmt.Sprintf("Deleting %v with %v", latest, req.GetKey()))
 	var entries []*pb.Entry
 	for _, q := range queue.GetEntries() {
 		if latest == nil || q.GetKey() != latest.GetKey() || q.GetRunTime() != latest.GetRunTime() {
