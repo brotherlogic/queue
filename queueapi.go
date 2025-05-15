@@ -264,7 +264,7 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 	var latest *pb.Entry
 	for _, q := range queue.GetEntries() {
 		if req.GetKey() != "" {
-			s.CtxLog(ctx, fmt.Sprintf("DELET '%v' vs '%v'", q.GetKey(), req.GetKey()))
+			s.CtxLog(ctx, fmt.Sprintf("DELETE '%v' vs '%v'", q.GetKey(), req.GetKey()))
 			if q.GetKey() == req.GetKey() {
 				latest = q
 			}
@@ -275,7 +275,7 @@ func (s *Server) DeleteQueueItem(ctx context.Context, req *pb.DeleteQueueItemReq
 		}
 	}
 
-	s.CtxLog(ctx, fmt.Sprintf("Deleting %v with %v", latest, req.GetKey()))
+	s.CtxLog(ctx, fmt.Sprintf("deleting %v with %v", latest, req.GetKey()))
 	var entries []*pb.Entry
 	for _, q := range queue.GetEntries() {
 		if latest == nil || q.GetKey() != latest.GetKey() || q.GetRunTime() != latest.GetRunTime() {
