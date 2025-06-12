@@ -4,7 +4,7 @@ go 1.23.2
 
 require (
 	github.com/brotherlogic/backup v0.0.0-20250416231658-8ea49d5d3343
-	github.com/brotherlogic/dstore v0.0.0-20250612170519-a750cf3fada6
+	github.com/brotherlogic/dstore v0.0.0-20250612180533-e8b27187930e
 	github.com/brotherlogic/goserver v0.0.0-20250608182006-4ace595931a5
 	github.com/brotherlogic/recordadder v0.0.0-20250610002152-a78e777fd120
 	github.com/brotherlogic/recordfanout v0.0.0-20250612173053-ca7b404b08e8
