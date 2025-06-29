@@ -8,7 +8,7 @@ require (
 	github.com/brotherlogic/goserver v0.0.0-20250608182006-4ace595931a5
 	github.com/brotherlogic/recordadder v0.0.0-20250629082204-ef4c3822b926
 	github.com/brotherlogic/recordfanout v0.0.0-20250629072110-2f0008bf3e3d
-	github.com/brotherlogic/recordsales v0.0.0-20250629061802-aeb9d950f3ba
+	github.com/brotherlogic/recordsales v0.0.0-20250629103437-0f75472e480d
 	github.com/brotherlogic/recordupdater v0.3.0
 	github.com/brotherlogic/recordwants v0.0.0-20250629082222-28241f5f50a0
 	github.com/brotherlogic/temp v0.0.0-20250629081941-b3b6a4c14a48
@@ -21,7 +21,7 @@ require (
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20250629051854-162a9c26c9c5 // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20250629093701-c7c9dca35e92 // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250610012354-722a6beaa331 // indirect
 	github.com/brotherlogic/discovery v0.0.0-20250613142713-1dac6d7d6bdd // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250628144502-a9135f09c106 // indirect
