@@ -10,7 +10,7 @@ require (
 	github.com/brotherlogic/recordfanout v0.0.0-20250629072110-2f0008bf3e3d
 	github.com/brotherlogic/recordsales v0.0.0-20250630084734-000366265f81
 	github.com/brotherlogic/recordupdater v0.3.0
-	github.com/brotherlogic/recordwants v0.0.0-20250630083700-c23254f99947
+	github.com/brotherlogic/recordwants v0.0.0-20250630091422-40b3fe528141
 	github.com/brotherlogic/temp v0.0.0-20250629081941-b3b6a4c14a48
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.22.0
