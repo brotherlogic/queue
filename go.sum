@@ -38,8 +38,8 @@ github.com/brotherlogic/recordsales v0.0.0-20250713112227-24144fc5e052 h1:CsudqO
 github.com/brotherlogic/recordsales v0.0.0-20250713112227-24144fc5e052/go.mod h1:LIqFEXdOa1FatLKV4NehU7IV2oy1GfjAFgsOLYhqqV8=
 github.com/brotherlogic/recordupdater v0.3.0 h1:6vNV0ui9sjYfUQoLot3+ojPD6/R3uGkJy3NXmgaT8zE=
 github.com/brotherlogic/recordupdater v0.3.0/go.mod h1:6GB0xrq8j6n/YLUe3imHhUo9zLlIXklwogBgSkAtvpM=
-github.com/brotherlogic/recordwants v0.0.0-20250713092452-7d02a90a0aea h1:jNciswUvql49kNDgEg9dhCUF8VcKUuRnuWHIgxJ4et4=
-github.com/brotherlogic/recordwants v0.0.0-20250713092452-7d02a90a0aea/go.mod h1:4rrOzPmpp0FCmsRoDMQOybC0S/7+SxpzuAsc3/p+H5c=
+github.com/brotherlogic/recordwants v0.0.0-20250713122553-8b374bfbd31f h1:NKcY8DmXdM7WyJkPfcm3R20TNuk9tvsJarhNXpIGt10=
+github.com/brotherlogic/recordwants v0.0.0-20250713122553-8b374bfbd31f/go.mod h1:wI7IC1tEBIVwvXh9PTljd7RrhtdxfB0ZQFm/fLK9B6I=
 github.com/brotherlogic/temp v0.0.0-20250711224611-d46442604b97 h1:HOs6nsPPL2RRF0e0qgwrRKYO7XqDGMrAd+CJFKoEwZY=
 github.com/brotherlogic/temp v0.0.0-20250711224611-d46442604b97/go.mod h1:ZRtETqAn+kLC5WiQRa5PnYFranOqIi3qiR5qTALK88A=
 github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 h1:YjFE4Sa+wwbl4yJwJaMQVeA4CMzLIDbbIuSMdsEp5/w=
