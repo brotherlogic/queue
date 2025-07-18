@@ -6,7 +6,7 @@ require (
 	github.com/brotherlogic/backup v0.0.0-20250718183818-b10332da1ca6
 	github.com/brotherlogic/dstore v0.0.0-20250613140516-5b29ccb83705
 	github.com/brotherlogic/goserver v0.0.0-20250608182006-4ace595931a5
-	github.com/brotherlogic/recordadder v0.0.0-20250718190152-42f1b374e7e7
+	github.com/brotherlogic/recordadder v0.0.0-20250718204635-fff723f29698
 	github.com/brotherlogic/recordfanout v0.0.0-20250717143016-95a24b5910be
 	github.com/brotherlogic/recordsales v0.0.0-20250713132707-7cae9b92a33a
 	github.com/brotherlogic/recordupdater v0.3.0
