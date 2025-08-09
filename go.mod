@@ -6,22 +6,22 @@ require (
 	github.com/brotherlogic/backup v0.0.0-20250718183818-b10332da1ca6
 	github.com/brotherlogic/dstore v0.0.0-20250613140516-5b29ccb83705
 	github.com/brotherlogic/goserver v0.0.0-20250608182006-4ace595931a5
-	github.com/brotherlogic/recordadder v0.0.0-20250801234814-acd87a317f08
-	github.com/brotherlogic/recordfanout v0.0.0-20250726002538-8d8e5e436080
-	github.com/brotherlogic/recordsales v0.0.0-20250728162607-bd0f02b53a17
+	github.com/brotherlogic/recordadder v0.0.0-20250805153144-626064d1abd2
+	github.com/brotherlogic/recordfanout v0.0.0-20250804140241-955d78e6a423
+	github.com/brotherlogic/recordsales v0.0.0-20250804170546-b4109d82a0c2
 	github.com/brotherlogic/recordupdater v0.3.0
 	github.com/brotherlogic/recordwants v0.0.0-20250801235833-f2645f5bb604
-	github.com/brotherlogic/temp v0.0.0-20250726000105-9bb79bc3df81
+	github.com/brotherlogic/temp v0.0.0-20250802005807-ad447195e6f8
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.23.0
-	golang.org/x/net v0.42.0
+	golang.org/x/net v0.43.0
 	google.golang.org/grpc v1.74.2
-	google.golang.org/protobuf v1.36.6
+	google.golang.org/protobuf v1.36.7
 )
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20250728173008-3fba66467a66 // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20250805024309-81a3b6189b58 // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250610012354-722a6beaa331 // indirect
 	github.com/brotherlogic/discovery v0.0.0-20250613142713-1dac6d7d6bdd // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250801235556-a312ee4205a7 // indirect
@@ -40,7 +40,7 @@ require (
 	github.com/prometheus/common v0.65.0 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/struCoder/pidusage v0.2.1 // indirect
-	golang.org/x/sys v0.34.0 // indirect
-	golang.org/x/text v0.27.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250728155136-f173205681a0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/text v0.28.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250804133106-a7a43d27e69b // indirect
 )
