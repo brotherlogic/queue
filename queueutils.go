@@ -180,7 +180,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 	}
 
 	if latest == nil {
-		if name != "wants_sync" {
+		if name != "wants_sync" && name != "temp" {
 			s.RaiseIssue("No Entries in Queue", fmt.Sprintf("Queue %v has no entries to run", name))
 		}
 		return nil, nil
