@@ -217,7 +217,7 @@ func (s *Server) runQueueElement(name string, deadline time.Duration) (*pb.Entry
 			for _, q := range queue.GetEntries() {
 				if q.GetKey() == latest.GetKey() && q.GetRunTime() == latest.GetRunTime() {
 					if status.Code(err) == codes.DataLoss {
-						q.RunTime = q.RunTime + 60*60
+						q.RunTime = q.RunTime + 60*60*24
 					} else {
 						q.RunTime = q.RunTime + 600
 					}
