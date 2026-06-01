@@ -1,47 +1,47 @@
 module github.com/brotherlogic/queue
 
-go 1.24.5
+go 1.26.3
 
 require (
-	github.com/brotherlogic/backup v0.0.0-20251120014649-e01d76f8c338
-	github.com/brotherlogic/dstore v0.0.0-20250613140516-5b29ccb83705
+	github.com/brotherlogic/backup v0.0.0-20260408211145-403b0f13cfa0
+	github.com/brotherlogic/dstore v0.0.0-20260203215131-c1953f4290fb
 	github.com/brotherlogic/goserver v0.0.0-20260125051706-82df7bec125f
-	github.com/brotherlogic/recordadder v0.0.0-20260115042304-9bb522242472
-	github.com/brotherlogic/recordfanout v0.0.0-20260126004510-3629860a4738
-	github.com/brotherlogic/recordsales v0.0.0-20250811171027-2a498d78d9ae
+	github.com/brotherlogic/recordadder v0.0.0-20260529185009-40c21ac4c654
+	github.com/brotherlogic/recordfanout v0.0.0-20260523164131-03652db164be
+	github.com/brotherlogic/recordsales v0.0.0-20260319021159-53c3cca616db
 	github.com/brotherlogic/recordupdater v0.3.0
-	github.com/brotherlogic/recordwants v0.0.0-20250809013054-02adead3c61b
-	github.com/brotherlogic/temp v0.0.0-20250809013139-9406c9277fb1
+	github.com/brotherlogic/recordwants v0.0.0-20260319022332-a509f3ad2e29
+	github.com/brotherlogic/temp v0.0.0-20260319013753-a645dd505911
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.23.2
-	golang.org/x/net v0.49.0
-	google.golang.org/grpc v1.79.3
+	golang.org/x/net v0.55.0
+	google.golang.org/grpc v1.81.1
 	google.golang.org/protobuf v1.36.11
 )
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20260125171235-32c1b69408ba // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20260523025133-78f11a8fa0a1 // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250610012354-722a6beaa331 // indirect
-	github.com/brotherlogic/discovery v0.0.0-20260125211111-17dead73d398 // indirect
-	github.com/brotherlogic/githubcard v0.0.0-20251120023818-cdf7f7559d6c // indirect
-	github.com/brotherlogic/githubridge v0.2874.0 // indirect
-	github.com/brotherlogic/gobuildslave v0.0.0-20260125054202-a15ab5108bd0 // indirect
-	github.com/brotherlogic/godiscogs v0.0.0-20250429182651-404c7473edf8 // indirect
-	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
-	github.com/brotherlogic/lock v0.0.0-20250809014217-ec6d59d5f63a // indirect
-	github.com/brotherlogic/logging v0.0.0-20250809013256-00b27467c7fd // indirect
+	github.com/brotherlogic/discovery v0.0.0-20260319021723-0af9069c77b1 // indirect
+	github.com/brotherlogic/githubcard v0.0.0-20260319022318-581af2e0f713 // indirect
+	github.com/brotherlogic/githubridge v0.2875.0 // indirect
+	github.com/brotherlogic/gobuildslave v0.0.0-20260319024238-83e212e88282 // indirect
+	github.com/brotherlogic/godiscogs v0.0.0-20260523225849-ca9c93bbaf31 // indirect
+	github.com/brotherlogic/keystore v0.0.0-20260319000604-318a8f9d407c // indirect
+	github.com/brotherlogic/lock v0.0.0-20260319021536-1ee751a89019 // indirect
+	github.com/brotherlogic/logging v0.0.0-20260319020728-4dbc020f1d5e // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/mitchellh/go-ps v1.0.0 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
-	github.com/prometheus/common v0.67.5 // indirect
-	github.com/prometheus/procfs v0.19.2 // indirect
+	github.com/prometheus/common v0.68.0 // indirect
+	github.com/prometheus/procfs v0.20.1 // indirect
 	github.com/struCoder/pidusage v0.2.1 // indirect
-	go.yaml.in/yaml/v2 v2.4.3 // indirect
-	golang.org/x/sys v0.40.0 // indirect
-	golang.org/x/text v0.33.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260122232226-8e98ce8d340d // indirect
+	go.yaml.in/yaml/v2 v2.4.4 // indirect
+	golang.org/x/sys v0.45.0 // indirect
+	golang.org/x/text v0.37.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260526163538-3dc84a4a5aaa // indirect
 )
